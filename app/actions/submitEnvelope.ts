@@ -4,6 +4,7 @@ import { createClient } from '@/core/utils/supabase/server'
 import { redirect } from 'next/navigation'
 
 export async function submitBrideGroomEnvelope(
+  prevState: any,
   formData: FormData
 ) {
   const supabase = await createClient()
@@ -30,7 +31,7 @@ export async function submitBrideGroomEnvelope(
   const styleMoodTags = formData.getAll('style_mood_tags') as string[]
 
   if (!scheduleWindow || !budgetBand || !legalNames || !contactInfo) {
-    throw new Error('필수 입력값이 누락되었습니다.')
+    return { error: '필수 입력값이 누락되었습니다.' }
   }
 
   // 3. DB Insert (새로운 Schema 반영)
@@ -54,7 +55,7 @@ export async function submitBrideGroomEnvelope(
 
   if (error || !data) {
     console.error('[SubmitEnvelope] DB Insert Error:', error)
-    throw new Error('데이터 저장 중 오류가 발생했습니다. 고객센터로 문의 바랍니다.')
+    return { error: '데이터 저장 중 오류가 발생했습니다. 고객센터로 문의 바랍니다.' }
   }
 
   // 4. 리다이렉션 (생성된 Envelope ID를 가진 조회 라우트로)

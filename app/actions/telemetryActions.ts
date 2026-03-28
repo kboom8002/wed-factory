@@ -3,7 +3,7 @@
 import { createClient } from '@/core/utils/supabase/server';
 import { headers } from 'next/headers';
 
-export type EventType = 'answer_open' | 'policy_open' | 'compare_click' | 'trust_expand';
+export type EventType = 'answer_open' | 'policy_open' | 'compare_click' | 'trust_expand' | 'deal_accepted';
 
 export async function trackEvent(
   eventType: EventType,

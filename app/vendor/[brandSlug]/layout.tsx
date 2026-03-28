@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-export default function VendorLayout({ 
+export default async function VendorLayout({ 
    children, 
    params 
 }: { 
    children: React.ReactNode, 
-   params: { brandSlug: string } 
+   params: Promise<{ brandSlug: string }> 
 }) {
-  const brandId = params.brandSlug;
+  const { brandSlug: brandId } = await params;
   
   const vendorMenu = [
     { name: '개요 (Overview)', path: `/vendor/${brandId}` },

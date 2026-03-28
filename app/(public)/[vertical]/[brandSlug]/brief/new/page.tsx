@@ -33,7 +33,10 @@ export default async function BriefComposerPage({
         </div>
 
         {/* Form Body */}
-        <form action={submitBrideGroomEnvelope} className="p-8 space-y-8">
+        <form action={async (formData) => {
+          'use server';
+          await submitBrideGroomEnvelope(null, formData);
+        }} className="p-8 space-y-8">
           
           {/* Target Brand (Hidden) */}
           <input type="hidden" name="vertical" value={vertical} />
