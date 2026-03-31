@@ -2,18 +2,25 @@
 
 DO $$
 DECLARE
-  v_urban_id UUID := '10000000-0000-0000-0000-000000000001';
-  v_lumina_id UUID := '20000000-0000-0000-0000-000000000002';
-  v_makeup_id UUID := '30000000-0000-0000-0000-000000000003';
+  v_urban_id UUID := '10000000-0000-0000-0000-000000000011';
+  v_lumina_id UUID := '20000000-0000-0000-0000-000000000022';
+  v_makeup_id UUID := '30000000-0000-0000-0000-000000000033';
 BEGIN
+
+  -- 0. Cleanup existing data for idempotency
+  DELETE FROM public.change_log WHERE entity_id IN (v_urban_id, v_lumina_id, v_makeup_id);
+  DELETE FROM public.combination_type WHERE brand_id IN (v_urban_id, v_lumina_id, v_makeup_id);
+  DELETE FROM public.policy_item WHERE brand_id IN (v_urban_id, v_lumina_id, v_makeup_id);
+  DELETE FROM public.answer_card WHERE brand_id IN (v_urban_id, v_lumina_id, v_makeup_id);
+  DELETE FROM public.brand_registry WHERE brand_id IN (v_urban_id, v_lumina_id, v_makeup_id);
+  DELETE FROM public.brand_registry WHERE brand_slug IN ('urban-studio', 'lumina-dress', 'sample-makeup');
 
   -- 1. Brand Registry
   INSERT INTO public.brand_registry (brand_id, brand_slug, brand_name_ko, vertical_type, public_status, package_tier, locale_set, active_modules, shared_hub_eligibility) 
   VALUES
   (v_urban_id, 'urban-studio', '어반 스튜디오', 'studio', 'published', 'standard', ARRAY['ko-KR'], ARRAY['portfolio', 'questions', 'policies', 'inquiry'], TRUE),
   (v_lumina_id, 'lumina-dress', '루미나 드레스', 'dress', 'published', 'entry', ARRAY['ko-KR'], ARRAY['portfolio', 'questions', 'policies', 'inquiry'], TRUE),
-  (v_makeup_id, 'sample-makeup', '샘플 메이크업', 'makeup', 'published', 'professional', ARRAY['ko-KR'], ARRAY['portfolio', 'questions', 'policies', 'inquiry'], TRUE)
-  ON CONFLICT (brand_slug) DO NOTHING;
+  (v_makeup_id, 'sample-makeup', '샘플 메이크업', 'makeup', 'published', 'professional', ARRAY['ko-KR'], ARRAY['portfolio', 'questions', 'policies', 'inquiry'], TRUE);
 
   -- 2. AnswerCards (Question-first 자산)
   INSERT INTO public.answer_card (brand_id, question, short_answer, visibility_level) VALUES
@@ -34,13 +41,13 @@ BEGIN
 
   -- 5. Trust Evidence (증빙 자산)
   INSERT INTO public.trust_evidence (evidence_id, target_type, masked_summary, status, created_at) VALUES
-  ('ev-urban-1', 'policy_item', '위약금 규정 공정위 표준약관 대조 완료', 'verified', NOW() - INTERVAL '5 days'),
-  ('ev-urban-2', 'answer_card', '야간 씬 추가금 고지서 및 실제 영수증 샘플 확인 완료', 'verified', NOW() - INTERVAL '1 days'),
-  ('ev-lumina-1', 'brand_registry', '사업자 등록증 상태 (정상 영업) 및 대표자 신원 확인', 'verified', NOW() - INTERVAL '12 days');
+  (gen_random_uuid(), 'policy_item', '위약금 규정 공정위 표준약관 대조 완료', 'verified', NOW() - INTERVAL '5 days'),
+  (gen_random_uuid(), 'answer_card', '야간 씬 추가금 고지서 및 실제 영수증 샘플 확인 완료', 'verified', NOW() - INTERVAL '1 days'),
+  (gen_random_uuid(), 'brand_registry', '사업자 등록증 상태 (정상 영업) 및 대표자 신원 확인', 'verified', NOW() - INTERVAL '12 days');
 
   -- 6. Change Logs (업데이트 로깅)
   INSERT INTO public.change_log (log_id, entity_id, entity_name, changes, created_at) VALUES
-  ('log-urban-1', v_urban_id, 'policy_item', '{"action":"POLICY_UPDATE", "note":"지각 페널티 3만원에서 5만원으로 상향 조정 (2025년 1월 기준)"}'::jsonb, NOW() - INTERVAL '14 days'),
-  ('log-lumina-1', v_lumina_id, 'answer_card', '{"action":"ANSWER_ADD", "note":"가봉 스냅 관련 룸 대관료 명시(20만원) 및 가능 요일 업데이트"}'::jsonb, NOW() - INTERVAL '3 days');
+  (gen_random_uuid(), v_urban_id, 'policy_item', '{"action":"POLICY_UPDATE", "note":"지각 페널티 3만원에서 5만원으로 상향 조정 (2025년 1월 기준)"}'::jsonb, NOW() - INTERVAL '14 days'),
+  (gen_random_uuid(), v_lumina_id, 'answer_card', '{"action":"ANSWER_ADD", "note":"가봉 스냅 관련 룸 대관료 명시(20만원) 및 가능 요일 업데이트"}'::jsonb, NOW() - INTERVAL '3 days');
 
 END $$;
