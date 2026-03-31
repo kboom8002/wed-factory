@@ -5,7 +5,7 @@ export default async function BrandRegistryPage() {
   const supabase = await createClient();
   const { data: brands, error } = await supabase
     .from('brand_registry')
-    .select('brand_id, id, brand_slug, brand_name_ko, brand_name_en, vertical_type, public_status, created_at')
+    .select('brand_id, brand_slug, brand_name_ko, brand_name_en, vertical_type, public_status, created_at')
     .order('created_at', { ascending: false });
 
   if (error) {
