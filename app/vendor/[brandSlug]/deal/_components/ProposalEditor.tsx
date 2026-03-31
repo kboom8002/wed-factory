@@ -15,6 +15,9 @@ export interface EnvelopeData {
   created_at: string;
   combination_title?: string;
   user_phone?: string;
+  envelope_status: string;
+  crm_status: 'inbox' | 'sent' | 'won' | 'lost';
+  proposal?: any;
 }
 
 export function ProposalEditor({ 

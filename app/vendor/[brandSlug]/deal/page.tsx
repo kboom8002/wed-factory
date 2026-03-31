@@ -30,9 +30,9 @@ export default async function VendorDealroomPage({
 
   const comboIds = (combinations || []).map(c => c.combination_id);
 
-  let pendingBriefs: any[] = [];
+  let allBriefs: any[] = [];
 
-  // 3. Fetch Envelopes targeted at these combinations
+  // 3. Fetch Envelopes targeted at these combinations, AND any existing proposals made by THIS brand
   if (comboIds.length > 0) {
     const { data: envelopes } = await supabase
       .from('bride_groom_envelope')
@@ -45,31 +45,48 @@ export default async function VendorDealroomPage({
         requirements,
         status,
         created_at,
-        combination_type!inner ( title )
+        client_name,
+        combination_type!inner ( title ),
+        deal_proposals ( proposal_id, status, proposed_price )
       `)
       .in('combination_id', comboIds)
-      .eq('status', 'requested')
+      .eq('deal_proposals.brand_id', context.id) // Only bring in proposals from THIS brand
       .order('created_at', { ascending: false });
 
-    // Map the shape
-    pendingBriefs = (envelopes || []).map((e: any) => ({
-      envelope_id: e.envelope_id,
-      user_id: e.user_id,
-      combination_id: e.combination_id,
-      schedule_window: e.schedule_window,
-      budget_band: e.budget_band,
-      requirements: e.requirements,
-      status: e.status,
-      created_at: e.created_at,
-      combination_title: e.combination_type?.title
-    }));
+    allBriefs = (envelopes || []).map((e: any) => {
+      // Find the specific proposal from this brand (if it exists)
+      const myProposal = e.deal_proposals && e.deal_proposals.length > 0 ? e.deal_proposals[0] : null;
+
+      // Determine the CRM tab state based on our proposal status, or if we haven't proposed yet
+      let crm_status = 'inbox'; // default
+      if (myProposal) {
+        if (myProposal.status === 'pending') crm_status = 'sent';
+        if (myProposal.status === 'accepted') crm_status = 'won';
+        if (myProposal.status === 'rejected' || myProposal.status === 'cancelled' || myProposal.status === 'refunded') crm_status = 'lost';
+      }
+
+      return {
+        envelope_id: e.envelope_id,
+        user_id: e.user_id,
+        client_name: e.client_name,
+        combination_id: e.combination_id,
+        schedule_window: e.schedule_window,
+        budget_band: e.budget_band,
+        requirements: e.requirements,
+        envelope_status: e.status, // requested, proposed, closed, rejected
+        crm_status, // inbox, sent, won, lost
+        created_at: e.created_at,
+        combination_title: e.combination_type?.title,
+        proposal: myProposal
+      };
+    });
   }
 
   return (
     <div className="p-8 md:p-12 w-full max-w-7xl mx-auto min-h-screen">
        <DealBoard 
           brandId={context.id} 
-          pendingBriefs={pendingBriefs} 
+          allBriefs={allBriefs} 
        />
     </div>
   );

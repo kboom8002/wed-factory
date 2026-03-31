@@ -31,6 +31,18 @@ export async function acceptProposal(
       .update({ status: 'closed', updated_at: new Date().toISOString() })
       .eq('envelope_id', envelopeId);
 
+    // [New] 4. 상태 변경 통보 (Mock Alimtalk)
+    try {
+      const { sendNotification } = require('@/core/engines/notifications');
+      await sendNotification(
+        'alimtalk',
+        'ADMIN_OR_VENDOR_PHONE',
+        '[웨딩팩토리] 새로운 계약 성사 안내',
+        `고객님이 방금 (견적 ${proposalId.substring(0,8)}) 제안을 수락하셨습니다! \n딜룸(Deal Board)을 확인하여 미팅 일정을 잡아주세요.`,
+        { envelopeId, proposalId }
+      );
+    } catch(e) { /* silent fail for mock */ }
+
     revalidatePath(`/brief/${envelopeId}`); // public page 갱신
     return { success: true, message: '🎉 공식 계약/미팅 거래가 수락되었습니다!' };
   } catch (err: any) {

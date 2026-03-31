@@ -26,7 +26,7 @@ export default async function CustomerMySpacePage({
     .from('deal_proposals')
     .select(`
       *,
-      brand_registry(id, brand_name, brand_slug, vertical_type, colors)
+      brand_registry(id, brand_name, brand_slug, vertical_type, colors, kakao_channel_url, bank_account_info)
     `)
     .eq('client_envelope_id', envelopeId)
     .order('created_at', { ascending: false });

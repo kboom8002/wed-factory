@@ -70,10 +70,46 @@ export default function ClientEnvelopeProposals({ proposals, envelopeId, envelop
             )}
 
             {isAccepted && (
-              <div className="mt-4 pt-4 border-t border-green-100 text-right">
-                 <span className="text-green-600 font-bold text-sm bg-green-50 px-4 py-2 rounded-lg">
-                   오프라인 미팅 일정율 점주가 곧 회신할 예정입니다.
-                 </span>
+              <div className="mt-8 pt-6 border-t border-green-200">
+                <h4 className="text-lg font-black text-green-800 flex items-center gap-2 mb-4">
+                  <span>✅</span> 딜 수락 완료! 다음 행동(Next Step) 안내
+                </h4>
+                <div className="bg-green-50 rounded-2xl p-6 border border-green-100 flex flex-col gap-4">
+                  
+                  {/* Bank Account Info */}
+                  <div>
+                    <span className="block text-green-700/60 font-bold text-xs uppercase mb-1">계약금(Deposit) 10만원 입금 계좌</span>
+                    <div className="flex items-center gap-3">
+                      <strong className="text-green-900 font-bold font-mono text-lg bg-white px-3 py-1.5 rounded-lg border border-green-200 shadow-sm flex-1">
+                        {p.brand_registry?.bank_account_info || '계좌 정보가 등록되지 않았습니다 (직접 문의)'}
+                      </strong>
+                      <button 
+                        onClick={() => navigator.clipboard.writeText(p.brand_registry?.bank_account_info || '')}
+                        className="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-700 active:scale-95 transition-all text-sm shadow-md"
+                      >
+                        계좌 복사
+                      </button>
+                    </div>
+                    <p className="text-green-700 text-xs mt-2 font-medium bg-green-100/50 p-2 rounded-lg inline-block">
+                      이체 시 입금자명을 반드시 **"견적 신청하신 성함(신랑님/신부님)"** 으로 해주세요.
+                    </p>
+                  </div>
+
+                  {/* Kakao Channel Link */}
+                  {p.brand_registry?.kakao_channel_url && (
+                    <div className="mt-2 pt-4 border-t border-green-200/50">
+                      <span className="block text-green-700/60 font-bold text-xs uppercase mb-2">프라이빗 1:1 상담 연결</span>
+                      <a 
+                        href={p.brand_registry.kakao_channel_url} 
+                        target="_blank" rel="noreferrer"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#FEE500] text-black font-black px-6 py-3.5 rounded-xl hover:brightness-95 active:scale-95 transition-all shadow-md focus:ring-4 focus:ring-[#FEE500]/30"
+                      >
+                        <span className="text-xl">💬</span> 카카오톡 채널로 미팅 일정 조율하기
+                      </a>
+                    </div>
+                  )}
+
+                </div>
               </div>
             )}
           </div>
