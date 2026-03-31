@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function BrandRegistryPage() {
   const MOCK_BRANDS = [
     { id: '1', name: '샘플 스튜디오', slug: 'sample-studio', vertical: 'studio', status: 'published', questions: 2, policies: 1, last_pub: '2시간 전' },
@@ -51,10 +53,13 @@ export default function BrandRegistryPage() {
                 <td className="p-4 font-bold text-gray-700">{brand.questions}</td>
                 <td className="p-4 font-bold text-gray-700">{brand.policies}</td>
                 <td className="p-4 text-sm text-gray-500 font-medium">{brand.last_pub}</td>
-                <td className="p-4 text-center">
+                <td className="p-4 text-center space-x-2">
                   <button className="text-blue-600 hover:text-blue-800 font-bold text-sm bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 shadow-sm transition">
                     자산 관리
                   </button>
+                  <Link href={`/admin/brands/${brand.slug}/settings`} className="inline-block text-purple-600 hover:text-purple-800 font-bold text-sm bg-purple-50 px-3 py-1.5 rounded-lg border border-purple-100 shadow-sm transition">
+                    Hero 설정
+                  </Link>
                 </td>
               </tr>
             ))}
