@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useVibe } from '@/core/design-system/VibeProvider';
 
 export function FloatingCta({ vertical, brandSlug, brandName }: { vertical: string, brandSlug: string, brandName: string }) {
-  const briefUrl = `/${vertical}/${brandSlug}/brief/new`;
+  const briefUrl = `/${vertical}/${brandSlug}/start`;
   const vibe = useVibe();
 
   return (

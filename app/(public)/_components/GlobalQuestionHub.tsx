@@ -150,7 +150,7 @@ export function GlobalQuestionHub({ allAnswers }: { allAnswers: ProjectedAnswerC
                                 브랜드 홈 방문
                              </Link>
                              <Link 
-                               href={`/${card.vertical_type}/${card.brand_slug}/brief/new`}
+                               href={`/${card.vertical_type}/${card.brand_slug}/start`}
                                className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap text-center shadow-md flex items-center gap-1.5"
                              >
                                 👍 이 정책으로 견적 의뢰

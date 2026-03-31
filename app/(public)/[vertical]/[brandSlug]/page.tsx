@@ -237,10 +237,10 @@ export default async function BrandHomePage({
                당신의 체형, 예산, 선호 무드를 정교하게 분석한 <strong>무료 핏 브리프(Fit Brief)</strong>를 48시간 내에 프라이빗하게 회신해 드립니다.
             </p>
             <Link 
-               href={`/${vertical}/${brandSlug}/brief/new`} 
+               href={`/${vertical}/${brandSlug}/start`} 
                className="inline-block px-10 py-5 bg-[var(--brand-primary)] text-white text-lg font-black rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform active:scale-95 w-full sm:w-auto ring-4 ring-white/10 hover:ring-[var(--brand-primary)]/30"
             >
-               맞춤 견적서(Envelope) 밀어넣기 →
+               맞춤 핏 브리프(Fit Brief) 무료 의뢰하기 →
             </Link>
           </div>
         </section>

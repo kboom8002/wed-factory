@@ -146,7 +146,7 @@ export default async function BrandQuestionsHub({
             <p className="text-gray-500 font-bold mb-2 text-lg">아직 답변된 질문이 없습니다.</p>
             <p className="text-gray-400 text-sm mb-6">스튜디오가 검수 중이거나 승인 대기 중입니다.</p>
             <Link 
-              href={`/${vertical}/${brandSlug}/brief/new`} 
+              href={`/${vertical}/${brandSlug}/start`} 
               className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 shadow-sm rounded-xl font-bold text-sm text-[var(--brand-primary)] hover:border-[var(--brand-primary)] transition-colors"
             >
                ✉️ 담당자에게 직접 질문 남기기
@@ -160,7 +160,7 @@ export default async function BrandQuestionsHub({
          <h3 className="font-bold text-lg text-[var(--brand-text-main)] mb-2">원하시는 답변을 못 찾으셨나요?</h3>
          <p className="text-sm text-[var(--brand-text-secondary)] mb-6">고객님의 핏(Fit)에 맞는 견적서 봉투를 팩토리로 밀어 넣으시면, 컨시어지가 즉각 회신합니다.</p>
          <Link 
-           href={`/${vertical}/${brandSlug}/brief/new`} 
+           href={`/${vertical}/${brandSlug}/start`} 
            className="px-6 py-3 rounded-xl bg-[var(--brand-primary)] text-white font-bold text-sm shadow-md hover:opacity-90 transition-opacity"
          >
            무료 핏 브리프 의뢰하기

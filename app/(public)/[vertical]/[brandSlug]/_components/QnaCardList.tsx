@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { trackEvent } from '@/app/actions/telemetryActions';
 import { useVibe } from '@/core/design-system/VibeProvider';
+import { TrustMetaTag } from './TrustMetaTag';
 
 // DTO from ProjectionEngine
 interface ProjectedCard {
@@ -99,20 +100,12 @@ export function QnaCardList({ cards, brandId }: { cards: ProjectedCard[], brandI
                 <p className={`text-[var(--brand-text-main)] whitespace-pre-wrap leading-relaxed ${card._meta?.is_locked ? 'blur-sm select-none opacity-40' : ''}`}>
                   <span className="text-[var(--brand-primary)] font-bold mr-2">A.</span>{card.answer}
                 </p>
-                <div className="mt-5 pt-4 border-t border-gray-200/50 text-xs text-gray-500 flex flex-col gap-2 sm:flex-row justify-between sm:items-center">
-                  <span>Updated: {new Date(card.updated_at).toLocaleDateString()}</span>
-                  <div 
-                    className="flex gap-2 items-center text-[11px] relative inline-block cursor-help"
-                    onMouseEnter={() => handleTrustHover(card.id)}
-                  >
-                    <span className={`px-2 py-1 rounded ${card._meta?.trust_status === 'verified' ? 'bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] font-bold border border-[var(--brand-primary)]/20 shadow-sm' : 'bg-gray-100 text-gray-500'}`}>
-                      {card._meta?.trust_status === 'verified' ? `✔ ${vibe.hooks.trust_tone}` : '미검증 구두답변'}
-                    </span>
-                    <span className="text-gray-400 max-w-[200px] truncate" title={card.evidence?.masked_summary || ''}>
-                      {card.evidence?.masked_summary}
-                    </span>
-                  </div>
-                </div>
+                <TrustMetaTag 
+                   lastVerifiedAt={new Date(card.updated_at).toLocaleDateString()} 
+                   verifier={card._meta?.trust_status === 'verified' ? '전담 팀' : '시스템'} 
+                   visibilityRule={card._meta?.original_visibility === 'L1' ? 'L1 조건부공개' : 'L0 전체공개'}
+                   hasProof={!!card.evidence?.masked_summary}
+                />
               </div>
             </div>
           );

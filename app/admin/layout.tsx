@@ -12,11 +12,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   ]);
 
   const menuItems = [
-    { name: 'Dashboard', path: '/admin' },
-    { name: 'Inbox & Dealroom', path: '/admin/inbox' },
-    { name: 'Q-Bank Backlog', path: '/admin/questions' },
-    { name: 'Publishing Center', path: '/admin/publishing' },
-    { name: 'Trust & Correction', path: '/admin/trustlog' },
+    { name: '📊 팩토리 개요', path: '/admin' },
+    { name: '🏢 브랜드 레지스트리', path: '/admin/brands' },
+    { name: '📑 템플릿/스키마 관리', path: '/admin/templates' },
+    { name: '🚀 퍼블리싱 큐 (Publish)', path: '/admin/publishing' },
+    { name: '🏅 팩트체크 큐 (Factcheck)', path: '/admin/factcheck' },
+    { name: '📭 질문 인박스', path: '/admin/inbox' },
+    { name: '💼 브리프/딜룸 모니터링', path: '/admin/dealroom' },
+    { name: '🌍 다국어 관리 큐', path: '/admin/localization' },
+    { name: '⏳ 변경 이력/감사 로그', path: '/admin/audit' },
   ];
 
   return (

@@ -10,9 +10,16 @@ export default async function VendorLayout({
   const { brandSlug: brandId } = await params;
   
   const vendorMenu = [
-    { name: '개요 (Overview)', path: `/vendor/${brandId}` },
-    { name: '새 답변(QnA) 작성', path: `/vendor/${brandId}/questions/new` },
-    { name: '새 포트폴리오 스냅 업로드', path: `/vendor/${brandId}/portfolio/new` },
+    { name: '📊 개요', path: `/vendor/${brandId}` },
+    { name: '🏢 브랜드 프로필', path: `/vendor/${brandId}/profile` },
+    { name: '💬 질문 및 답변 (Answers)', path: `/vendor/${brandId}/answers` },
+    { name: '📸 포트폴리오 관리', path: `/vendor/${brandId}/portfolio` },
+    { name: '⚖️ 맞춤도·조합 (Fit)', path: `/vendor/${brandId}/fit` },
+    { name: '🛡️ 가격/정책 설계', path: `/vendor/${brandId}/policies` },
+    { name: '🏅 증빙자료 제출 (Proofs)', path: `/vendor/${brandId}/proof` },
+    { name: '🚀 퍼블리싱/검수 상태', path: `/vendor/${brandId}/publishing` },
+    { name: '💼 브리프 응답·딜룸', path: `/vendor/${brandId}/deal` },
+    { name: '📈 모니터링/분석', path: `/vendor/${brandId}/analytics` },
   ];
 
   return (

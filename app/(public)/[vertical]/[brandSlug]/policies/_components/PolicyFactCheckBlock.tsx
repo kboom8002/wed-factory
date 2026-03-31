@@ -58,6 +58,7 @@ export function PolicyFactCheckBlock({ policies, brandId }: { policies: PolicyIt
 }
 
 import { trackEvent } from '@/app/actions/telemetryActions';
+import { TrustMetaTag } from '../../_components/TrustMetaTag';
 
 function PolicyRow({ item, brandId }: { item: PolicyItemProps, brandId: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -127,6 +128,14 @@ function PolicyRow({ item, brandId }: { item: PolicyItemProps, brandId: string }
                   </p>
                 </div>
              )}
+          </div>
+          <div className="col-span-1 sm:col-span-2">
+             <TrustMetaTag 
+                lastVerifiedAt="2026-03-31" 
+                verifier="플랫폼" 
+                visibilityRule="L0 공개" 
+                hasProof={true}
+             />
           </div>
         </div>
       )}

@@ -9,18 +9,19 @@ export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string;
   const basePath = `/${vertical}/${brandSlug}`;
   
   const navItems = [
-    { name: '개요 홈', path: basePath, exact: true },
-    { name: '❓ 질문 허브', path: `${basePath}/questions`, exact: false },
+    { name: '홈', path: basePath, exact: true },
+    { name: '맞춤도·조합', path: `${basePath}/fit`, exact: false },
     { name: '포트폴리오', path: `${basePath}/portfolio`, exact: false },
-    { name: '⚖️ 비교/조합', path: `${basePath}/compare`, exact: false },
-    { name: '견적·정책', path: `${basePath}/policies`, exact: false },
-    { name: '공식 리뷰', path: `${basePath}/reviews`, exact: false },
+    { name: '정책·가격', path: `${basePath}/policies`, exact: false },
+    { name: '질문', path: `${basePath}/questions`, exact: false },
+    { name: '리뷰·증빙', path: `${basePath}/proof`, exact: false },
   ];
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-[var(--brand-surface)]/80 backdrop-blur-lg border-b shadow-sm border-gray-100 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto px-6">
-        <ul className="flex space-x-6 sm:space-x-8 overflow-x-auto no-scrollbar items-center h-14">
+      <div className="max-w-5xl mx-auto px-6 flex justify-between items-center h-14">
+        
+        <ul className="flex space-x-6 sm:space-x-8 overflow-x-auto no-scrollbar items-center h-full">
           {navItems.map((item) => {
             const isActive = item.exact ? pathname === item.path : pathname.startsWith(item.path);
             
@@ -31,7 +32,7 @@ export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string;
                   className={`h-full flex items-center px-1 text-sm font-bold transition-all duration-200 border-b-[3px] ${
                     isActive 
                       ? 'text-[var(--brand-primary)] border-[var(--brand-primary)]' 
-                      : 'text-gray-400 hover:text-[var(--brand-text-main)] border-transparent'
+                      : 'text-[var(--brand-text-muted)] hover:text-[var(--brand-text-main)] border-transparent'
                   }`}
                 >
                   {item.name}
@@ -40,6 +41,16 @@ export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string;
             );
           })}
         </ul>
+
+        {/* Action Button: 맞춤 브리프 시작 */}
+        <div className="hidden md:flex shrink-0">
+          <Link 
+            href={`${basePath}/start`}
+            className="px-4 py-1.5 bg-[var(--brand-primary)] text-[var(--brand-surface)] font-bold text-xs rounded-full shadow-sm hover:brightness-90 transition-all flex items-center gap-1.5"
+          >
+            <span className="text-sm">✨</span> 맞춤 브리프 시작
+          </Link>
+        </div>
       </div>
     </nav>
   );
