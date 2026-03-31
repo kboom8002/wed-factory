@@ -3,18 +3,21 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useTranslations } from 'next-intl';
+
 export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string; brandSlug: string }) {
   const pathname = usePathname();
+  const t = useTranslations('Nav');
   
   const basePath = `/${vertical}/${brandSlug}`;
   
   const navItems = [
-    { name: '홈', path: basePath, exact: true },
-    { name: '맞춤도·조합', path: `${basePath}/fit`, exact: false },
-    { name: '포트폴리오', path: `${basePath}/portfolio`, exact: false },
-    { name: '정책·가격', path: `${basePath}/policies`, exact: false },
-    { name: '질문', path: `${basePath}/questions`, exact: false },
-    { name: '리뷰·증빙', path: `${basePath}/proof`, exact: false },
+    { name: t('home'), path: basePath, exact: true },
+    { name: t('fit'), path: `${basePath}/fit`, exact: false },
+    { name: t('portfolio'), path: `${basePath}/portfolio`, exact: false },
+    { name: t('policies'), path: `${basePath}/policies`, exact: false },
+    { name: t('questions'), path: `${basePath}/questions`, exact: false },
+    { name: t('proof'), path: `${basePath}/proof`, exact: false },
   ];
 
   return (
@@ -48,7 +51,7 @@ export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string;
             href={`${basePath}/start`}
             className="px-4 py-1.5 bg-[var(--brand-primary)] text-[var(--brand-surface)] font-bold text-xs rounded-full shadow-sm hover:brightness-90 transition-all flex items-center gap-1.5"
           >
-            <span className="text-sm">✨</span> 맞춤 브리프 시작
+            {t('cta')}
           </Link>
         </div>
       </div>

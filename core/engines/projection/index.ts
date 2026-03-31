@@ -21,6 +21,7 @@ export interface RawAnswerCard {
   public_status: string;
   updated_at: string;
   trust_evidence?: RawTrustEvidence;
+  translations?: Record<string, any>;
 }
 
 export interface ProjectionMeta {
@@ -37,7 +38,8 @@ export interface ProjectionMeta {
 export function projectAnswerCard(
   card: RawAnswerCard, 
   surface: ProjectionSurface, 
-  level: VisibilityLevel
+  level: VisibilityLevel,
+  locale?: string
 ): any {
   // L0 렌더링 시 퍼블리시되지 않은 항목 철저 배제 (Admin 뷰가 아닌 경우)
   if (card.public_status !== 'published' && surface !== 'admin') {
@@ -60,6 +62,14 @@ export function projectAnswerCard(
   } else {
     // L1, L2에서는 상세/최종 서류 포함
     dto.answer = card.full_answer || card.short_answer;
+  }
+
+  // [다국어(i18n) 변수 오버라이드 엔진]
+  // locale 파라미터가 명시되었고, 번역본이 존재하면 원본 텍스트를 파괴적 업데이트
+  if (locale && dto.translations && dto.translations[locale]) {
+    const loc = dto.translations[locale];
+    if (loc.question) dto.question = loc.question;
+    if (loc.answer) dto.answer = loc.answer;
   }
 
   // 2. SEO (JSON-LD) Surface Specific Map

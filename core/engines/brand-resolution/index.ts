@@ -1,7 +1,7 @@
 import { BrandRuntimeContext, VerticalType } from '../../runtime/brand-context';
 import { createClient } from '@/core/utils/supabase/server';
 
-export async function resolveBrandContext(slug: string, vertical?: VerticalType): Promise<BrandRuntimeContext | null> {
+export async function resolveBrandContext(slug: string, vertical?: VerticalType, locale?: string): Promise<BrandRuntimeContext | null> {
   const supabase = await createClient();
   
   const { data, error } = await supabase
@@ -17,11 +17,18 @@ export async function resolveBrandContext(slug: string, vertical?: VerticalType)
 
   // MVP Mock 단계 제거 및 DB Fetch 데이터 매핑
   const verticalMatch = data.vertical_type as VerticalType;
+  let translatedBrandName = data.brand_name_ko || data.brand_name;
+
+  if (locale && data.translations && data.translations[locale]) {
+     if (data.translations[locale].brand_name) {
+       translatedBrandName = data.translations[locale].brand_name;
+     }
+  }
 
   return {
     id: data.brand_id || data.id,
     brand_slug: data.brand_slug,
-    brand_name: data.brand_name_ko || data.brand_name,
+    brand_name: translatedBrandName,
     vertical_type: verticalMatch || vertical || 'studio',
     package_tier: data.package_tier || 'standard',
     

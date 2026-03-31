@@ -1,13 +1,46 @@
 {
+  "Nav": {
+    "home": "홈",
+    "fit": "맞춤도·조합",
+    "portfolio": "포트폴리오",
+    "policies": "정책·가격",
+    "questions": "질문",
+    "proof": "리뷰·증빙",
+    "cta": "✨ 맞춤 브리프 시작"
+  },
+  "FloatingCta": {
+    "title": "{brandName} 맞춤형 의뢰서 작성",
+    "cta": "✨ 맞춤 브리프 시작"
+  },
   "Hero": {
     "title": "{brandName}",
     "subtitle": "웨딩 스드메 AI홈페이지 Factory - {verticalType} 공식 테넌트"
+  },
+  "Fit": {
+    "badge": "Brand Fit & Combination Guide",
+    "title": "누가 가장 잘 맞을까?",
+    "desc1": "실명 업체를 무작정 스크랩하면 피로도만 높아집니다.",
+    "desc2": "{brandName}이(가) 가장 잘 하는 디렉팅 무드를 인지하고,\n나에게 적합한지 (Best Fit)부터 검증해 보세요.",
+    "check1": "체형별 핏 검증 완료",
+    "check2": "딜브레이커 공개",
+    "bestFit": "이런 고객에게 최고의 선택입니다",
+    "bestTitle": "최고의 궁합 (Best Fit)",
+    "notFitTitle": "추천하지 않음 (Not Fit)",
+    "combinations": "대표 조합 가이드",
+    "emptyCombo": "런칭 준비 중인 패키지",
+    "emptyDesc": "새로운 하이엔드 팩트체크를 모델링 중입니다.",
+    "previewBtn": "포트폴리오 프리뷰",
+    "compareTitle": "가장 잘 맞는 조합(Fit)을 찾으셨나요?",
+    "compareDesc": "해당 가이드를 기반으로 원하시는 무드/예산을 알려주세요.\n가장 명확하고 투명한 결정을 돕기 위해 확정 견적(Price Guarantee)과 플랜을 프라이빗 딜룸으로 회신합니다.",
+    "compareBtn": "맞춤 브리프(Fit Brief) 작성 ✦"
   },
   "Portfolio": {
     "title": "우리가 가장 잘하는 핏 (Fit)",
     "subtitle": "SELECTED PORTFOLIO",
     "viewAll": "전체 갤러리 보기 →",
-    "empty": "포트폴리오 스냅샷이 아직 업로드되지 않았습니다."
+    "empty": "포트폴리오 스냅샷이 아직 업로드되지 않았습니다.",
+    "pageTitle": "무드 & 포트폴리오",
+    "pageDesc": "인위적인 샘플 화보보다, 실제 고객들이 가장 만족했던 현장 스냅샷 위주로 공개합니다."
   },
   "Pricing": {
     "title": "포함 및 불포함 요약",
@@ -22,7 +55,9 @@
     "exc2": "수석 지정 촬영",
     "exc2_price": "+330,000원",
     "excNote": "더 자세한 위약금 및 환불 정책은 하단 전체 견적표를 참조하세요.",
-    "viewAll": "전체 견적표 및 정책 읽기"
+    "viewAll": "전체 견적표 및 정책 읽기",
+    "pageTitle": "위약금 및 환불 정책",
+    "pageDesc": "숨겨진 추가금이나 불리한 위약금 정책 없이 투명하게 공개합니다.\n분쟁 없는 안전한 거래를 약속합니다."
   },
   "QnA": {
     "title": "가장 많이 묻는 질문 팩트체크",
@@ -30,7 +65,9 @@
     "viewAll": "질문 허브로 가기 →",
     "locked": "해당 정책 및 파격 단가 팩트체크 원본은 회원(L1)에게만 공개됩니다.",
     "loginToView": "로그인하고 원본 보기",
-    "empty": "아직 대답이 등록된 질문이 없습니다."
+    "empty": "아직 대답이 등록된 질문이 없습니다.",
+    "pageTitle": "AEO 질문 허브",
+    "pageDesc": "수십 개의 커뮤니티를 뒤지지 마세요.\n가장 많이 묻는 질문과 답변(AEO)을 팩트체크하여 제공합니다."
   },
   "CTA": {
     "step": "Step 1. Enquiry",

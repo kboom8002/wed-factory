@@ -5,6 +5,7 @@ import { VerticalType } from '@/core/runtime/brand-context';
 import { createClient } from '@/core/utils/supabase/server';
 import { FitGuideBlock } from './_components/FitGuideBlock';
 import { MasonryGallery, PortfolioItem } from './_components/MasonryGallery';
+import { getTranslations } from 'next-intl/server';
 
 export default async function PortfolioPage({
   params,
@@ -19,6 +20,7 @@ export default async function PortfolioPage({
   }
 
   const supabase = await createClient();
+  const tPort = await getTranslations('Portfolio');
 
   // 1. Portfolio Data Fetching (L0 공개분만)
   const { data: rawShots, error: shotErr } = await supabase
@@ -65,10 +67,10 @@ export default async function PortfolioPage({
       <div className="w-full mb-8 flex justify-between items-end border-b border-[var(--brand-primary)]/20 pb-4">
          <div>
             <h1 className="text-3xl font-black text-[var(--brand-text-main)] mb-1">
-               {context.brand_name} 매거진 화보
+               {tPort('pageTitle')}
             </h1>
-            <p className="text-[var(--brand-text-muted)] font-medium text-sm tracking-tight">
-               L0 등급으로 공개 승인된 팩트체크 이미지 에셋 (총 {displayItems.length}장)
+            <p className="text-[var(--brand-text-muted)] font-medium text-sm tracking-tight whitespace-pre-line">
+               {tPort('pageDesc')}
             </p>
          </div>
       </div>

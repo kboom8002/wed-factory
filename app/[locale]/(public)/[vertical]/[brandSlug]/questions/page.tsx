@@ -5,22 +5,24 @@ import { resolveBrandContext } from '@/core/engines/brand-resolution';
 import { VerticalType } from '@/core/runtime/brand-context';
 import { AnswerCardProjection } from '@/hub/projections/AnswerCardProjection';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 import { maskAnswerCard } from '@/core/engines/disclosure-engine/masking';
 
 export default async function BrandQuestionsHub({
   params,
 }: {
-  params: Promise<{ vertical: string; brandSlug: string }>
+  params: Promise<{ locale: string; vertical: string; brandSlug: string }>
 }) {
-  const { vertical, brandSlug } = await params;
-  const context = await resolveBrandContext(brandSlug, vertical as VerticalType);
+  const { locale, vertical, brandSlug } = await params;
+  const context = await resolveBrandContext(brandSlug, vertical as VerticalType, locale);
 
   if (!context) {
     notFound();
   }
 
   const supabase = await createClient();
+  const tQnA = await getTranslations('QnA');
   const { data: { user } } = await supabase.auth.getUser();
   const isAuthenticated = !!user;
 
@@ -29,7 +31,7 @@ export default async function BrandQuestionsHub({
   const { data: rawAnswers, error } = await supabase
     .from('answer_card')
     .select(`
-      card_id, question, short_answer, visibility_level, updated_at, boundary_note, reviewer_id
+      card_id, question, short_answer, visibility_level, updated_at, boundary_note, reviewer_id, translations
     `)
     .eq('brand_id', context.id)
     .in('visibility_level', ['L0', 'L1'])
@@ -43,10 +45,19 @@ export default async function BrandQuestionsHub({
   let l0Answers: any[] = [];
   if (rawAnswers && rawAnswers.length > 0) {
     l0Answers = rawAnswers.map((r) => {
+      let mappedQuestion = r.question;
+      let mappedAnswer = r.short_answer;
+
+      if (locale && r.translations && r.translations[locale]) {
+         const loc = r.translations[locale];
+         if (loc.question) mappedQuestion = loc.question;
+         if (loc.answer) mappedAnswer = loc.answer;
+      }
+
       // 1. Raw DTO 조립
       const rawData = {
-         question: r.question,
-         short_answer: r.short_answer,
+         question: mappedQuestion,
+         short_answer: mappedAnswer,
          brand_id: context.id,
          answer_id: r.card_id,
          brand_slug: context.brand_slug,
@@ -97,11 +108,10 @@ export default async function BrandQuestionsHub({
           <span>FAQ & AEO Hub</span>
         </div>
         <h1 className="text-3xl md:text-5xl font-black text-[var(--brand-text-main)] tracking-tight mb-4">
-          묻기도 전에, <br className="hidden md:block"/>모든 답을 투명하게.
+          {tQnA('pageTitle')}
         </h1>
-        <p className="text-[var(--brand-text-secondary)] font-medium text-lg leading-relaxed max-w-2xl">
-          숨겨진 추가금부터 정책까지, 고객이 가장 궁금해 하는 질문들을 백로그 스크래핑을 통해 모았습니다. 
-          어떤 질문이든 검색하고 팩트체크된 답변을 확인하세요.
+        <p className="text-[var(--brand-text-secondary)] font-medium text-lg leading-relaxed max-w-2xl whitespace-pre-line">
+          {tQnA('pageDesc')}
         </p>
 
         {/* Fake Search Input (UI Only) */}

@@ -1,25 +1,46 @@
 -- data/seeds/20260331_03_seed_lumina_translations.sql
 
-DO $$
-BEGIN
-  -- 1. 체형 컴플렉스 QnA 다국어 샘플 매핑
-  UPDATE public.answer_card 
-  SET translations = '{
-    "en": {"question": "Can it perfectly cover physical complexes like the trapezius muscle or thick arms?", "answer": "Lumina Dress possesses over 30 types of off-shoulder and convertible boleros, specifically designed to specialize in upper body fit and flawless coverage."},
-    "ja": {"question": "体型の悩み（僧帽筋、二の腕など）はうまくカバーできますか？", "answer": "ルミナドレスには、オフショルダーやアレンジ用ボレロが30種類以上備わっており、上半身のカバー（フィット感）や体型補正に特化しています。"},
-    "zh-TW": {"question": "能很好地修飾體型困擾（斜方肌、粗手臂等）嗎？", "answer": "Lumina 婚紗擁有 30 種以上的露肩及可變形披肩，專門針對上半身修飾（Fit）而設計，能給您完美的視覺效果。"},
-    "zh-CN": {"question": "能很好地修饰体型困扰（斜方肌、粗手臂等）吗？", "answer": "Lumina 婚纱拥有 30 种以上的露肩及可变形披肩，专为修饰上半身（Fit）设计，为您打造完美的视觉效果。"}
-  }'::jsonb
-  WHERE question LIKE '%체형 컴플렉스%';
+-- 1. Brand Registry Translations
+UPDATE public.brand_registry
+SET translations = '{
+  "en": {
+    "brand_name": "Lumiere Dress"
+  },
+  "ja": {
+    "brand_name": "ルミエール ドレス"
+  }
+}'::jsonb
+WHERE brand_slug = 'lumiere-dress';
 
-  -- 2. 가봉 스냅 QnA 다국어 샘플 매핑
-  UPDATE public.answer_card 
-  SET translations = '{
-    "en": {"question": "Do you also offer fitting snapshots?", "answer": "Fitting snapshots are available exclusively on weekdays in a private room for 2 hours, with an additional studio rental fee of 200,000 KRW."},
-    "ja": {"question": "フィッティング時のスナップ撮影も可能ですか？", "answer": "フィッティングのスナップ撮影は平日に限り、プライベートルームにて2時間実施可能です。（スタジオレンタル料：別途20万ウォン発生）"},
-    "zh-TW": {"question": "請問也可以拍試穿婚紗時的快照嗎？", "answer": "試穿快照僅限平日，在私人 VIP 室拍攝 2 小時，工作室租借費需另加收 20 萬韓元。"},
-    "zh-CN": {"question": "请问也可以拍试穿婚纱时的快照吗？", "answer": "试穿快照仅限工作日，在私人 VIP 室拍摄 2 小时，工作室租借费需另加收 20 万韩元。"}
-  }'::jsonb
-  WHERE question LIKE '%가봉 스냅%';
+-- 2. Combination Type Translations (Best Fit/Not Fit)
+-- Assume we find the Best Fit combination for lumiere-dress
+UPDATE public.combination_type
+SET translations = '{
+  "en": {
+    "title": "Signature Silk Concept",
+    "studio_type_summary": "Minimalist Studio Focus",
+    "makeup_type_summary": "Clean & Glow Makeup",
+    "regret_risks": "Not recommended for those seeking highly elaborate beadings."
+  },
+  "ja": {
+    "title": "シグネチャーシルクコンセプト",
+    "studio_type_summary": "ミニマリストスタジオ中心",
+    "makeup_type_summary": "クリーン＆グロウメイクアップ",
+    "regret_risks": "華やかなビーズ装飾を求める方にはお勧めしません。"
+  }
+}'::jsonb
+WHERE brand_id = (SELECT id FROM public.brand_registry WHERE brand_slug = 'lumiere-dress' LIMIT 1);
 
-END $$;
+-- 3. Policy Item Translations
+UPDATE public.policy_item
+SET translations = '{
+  "en": {
+    "summary": "Penalty applies for cancellation 30 days prior",
+    "detailed_rule": "Full refund of deposit up to 30 days before the shooting date.\\n30% deduction for cancellations 29-15 days prior.\\nNo refund for cancellations within 14 days."
+  },
+  "ja": {
+    "summary": "撮影30日前のキャンセルの場合、違約金が発生します",
+    "detailed_rule": "撮影日の30日前までは予約金の全額返金。\\n29日～15日前のキャンセルの場合、30%控除後に返金。\\n14日前～当日キャンセルの場合、全額返金不可。"
+  }
+}'::jsonb
+WHERE brand_id = (SELECT id FROM public.brand_registry WHERE brand_slug = 'lumiere-dress' LIMIT 1);

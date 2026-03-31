@@ -5,20 +5,22 @@ import { VerticalType } from '@/core/runtime/brand-context';
 import { createClient } from '@/core/utils/supabase/server';
 import { PricingBandCard, PricingBandItem } from './_components/PricingBandCard';
 import { PolicyFactCheckBlock, PolicyItemProps } from './_components/PolicyFactCheckBlock';
+import { getTranslations } from 'next-intl/server';
 
 export default async function PoliciesPage({
   params,
 }: {
-  params: Promise<{ vertical: string; brandSlug: string }>
+  params: Promise<{ locale: string; vertical: string; brandSlug: string }>
 }) {
-  const { vertical, brandSlug } = await params;
+  const { locale, vertical, brandSlug } = await params;
   
-  const context = await resolveBrandContext(brandSlug, vertical as VerticalType);
+  const context = await resolveBrandContext(brandSlug, vertical as VerticalType, locale);
   if (!context) {
     notFound();
   }
 
   const supabase = await createClient();
+  const tPricing = await getTranslations('Pricing');
 
   // 1. Fetch Pricing Bands (L0)
   const { data: rawBands } = await supabase
@@ -60,7 +62,25 @@ export default async function PoliciesPage({
     .eq('brand_id', context.id)
     .eq('visibility_level', 'L0');
 
-  let policies: PolicyItemProps[] = rawPolicies || [];
+  let policies: PolicyItemProps[] = rawPolicies ? rawPolicies.map((p) => {
+    let mappedSummary = p.summary;
+    let mappedDetailed = p.detailed_rule;
+    let mappedExceptions = p.exceptions;
+
+    if (locale && p.translations && p.translations[locale]) {
+      const loc = p.translations[locale];
+      if (loc.summary) mappedSummary = loc.summary;
+      if (loc.detailed_rule) mappedDetailed = loc.detailed_rule;
+      if (loc.exceptions) mappedExceptions = loc.exceptions;
+    }
+
+    return {
+      ...p,
+      summary: mappedSummary,
+      detailed_rule: mappedDetailed,
+      exceptions: mappedExceptions
+    };
+  }) : [];
 
   // MVP Fallback for Empty DB
   if (policies.length === 0) {
@@ -108,10 +128,10 @@ export default async function PoliciesPage({
       
       <div className="w-full mb-10 text-center sm:text-left">
          <h1 className="text-3xl font-black text-[var(--brand-text-main)] mb-2">
-            {context.brand_name} 팩트체크 견적
+            {tPricing('pageTitle')}
          </h1>
-         <p className="text-[var(--brand-text-muted)] font-medium text-sm sm:text-base leading-relaxed tracking-tight">
-            플랫폼이 팩트체크를 끝낸 공정 정책입니다. 숨겨진 <strong className="text-red-500 font-bold px-1 bg-red-50 border border-red-100 rounded">추가금 리스크</strong>까지 한눈에 비교하세요.
+         <p className="text-[var(--brand-text-muted)] font-medium text-sm sm:text-base leading-relaxed tracking-tight whitespace-pre-line">
+            {tPricing('pageDesc')}
          </p>
       </div>
       

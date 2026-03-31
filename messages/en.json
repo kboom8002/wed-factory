@@ -1,13 +1,46 @@
 {
+  "Nav": {
+    "home": "Home",
+    "fit": "Brand Fit & Combo",
+    "portfolio": "Portfolio",
+    "policies": "Policies & Pricing",
+    "questions": "Q&A",
+    "proof": "Review & Proof",
+    "cta": "✨ Start Fit Brief"
+  },
+  "FloatingCta": {
+    "title": "Create a Custom Brief for {brandName}",
+    "cta": "✨ Start Fit Brief"
+  },
   "Hero": {
     "title": "{brandName}",
     "subtitle": "Wedding AI Homepage Factory - Official {verticalType} Tenant"
+  },
+  "Fit": {
+    "badge": "Brand Fit & Combination Guide",
+    "title": "Who is the Best Fit?",
+    "desc1": "Blindly scraping real-name companies only increases fatigue.",
+    "desc2": "Recognize the directing mood that {brandName} does best, \nand verify if it's the 'Best Fit' for you first.",
+    "check1": "Fit Verification by Body Type",
+    "check2": "Dealbreakers Revealed",
+    "bestFit": "The Best Choice for These Customers",
+    "bestTitle": "Best Fit",
+    "notFitTitle": "Not Recommended (Not Fit)",
+    "combinations": "Represented Combination Guide",
+    "emptyCombo": "Packages Preparing for Launch",
+    "emptyDesc": "We are currently modeling a new high-end fact check.",
+    "previewBtn": "Portfolio Preview",
+    "compareTitle": "Did you find the best combination (Fit)?",
+    "compareDesc": "Based on this guide, let us know your desired mood/budget. \nTo help you make the clearest and most transparent decision, we will reply with a Price Guarantee and plan to your private deal room.",
+    "compareBtn": "Create Custom Fit Brief ✦"
   },
   "Portfolio": {
     "title": "The Fit We Specialize In",
     "subtitle": "SELECTED PORTFOLIO",
     "viewAll": "View Full Gallery →",
-    "empty": "No portfolio snapshots uploaded yet."
+    "empty": "No portfolio snapshots uploaded yet.",
+    "pageTitle": "Mood & Portfolio",
+    "pageDesc": "Instead of artificial sample photoshoots, we focus on revealing actual on-site snapshots that our customers were most satisfied with."
   },
   "Pricing": {
     "title": "Inclusions & Exclusions Summary",
@@ -22,7 +55,9 @@
     "exc2": "Chief Photographer Assignment",
     "exc2_price": "+330,000 KRW",
     "excNote": "Please refer to the full quote table below for detailed penalty and refund policies.",
-    "viewAll": "Read Full Quote & Policies"
+    "viewAll": "Read Full Quote & Policies",
+    "pageTitle": "Penalty & Refund Policies",
+    "pageDesc": "We transparently disclose everything without hidden charges or unfair penalty policies.\nWe promise safe transactions without disputes."
   },
   "QnA": {
     "title": "Most Frequently Asked Questions (Fact Check)",
@@ -30,7 +65,9 @@
     "viewAll": "Go to Question Hub →",
     "locked": "The original fact-check for policies and extreme discounts is disclosed to members (L1) only.",
     "loginToView": "Login to View Original",
-    "empty": "No answered questions yet."
+    "empty": "No answered questions yet.",
+    "pageTitle": "AEO Question Hub",
+    "pageDesc": "Don't dig through dozens of communities.\nWe provide fact-checked answers to the most frequently asked questions."
   },
   "CTA": {
     "step": "Step 1. Enquiry",

@@ -8,11 +8,11 @@ import { SubmitBriefButton } from './_components/SubmitBriefButton';
 export default async function BriefComposerPage({
   params,
 }: {
-  params: Promise<{ vertical: string; brandSlug: string }>
+  params: Promise<{ locale: string; vertical: string; brandSlug: string }>
 }) {
-  const { vertical, brandSlug } = await params;
+  const { locale, vertical, brandSlug } = await params;
   
-  const context = await resolveBrandContext(brandSlug, vertical as VerticalType);
+  const context = await resolveBrandContext(brandSlug, vertical as VerticalType, locale);
   if (!context) {
     notFound();
   }

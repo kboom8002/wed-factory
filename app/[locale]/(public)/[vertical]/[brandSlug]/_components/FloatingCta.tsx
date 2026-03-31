@@ -4,9 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import { useVibe } from '@/core/design-system/VibeProvider';
 
+import { useTranslations } from 'next-intl';
+
 export function FloatingCta({ vertical, brandSlug, brandName }: { vertical: string, brandSlug: string, brandName: string }) {
   const briefUrl = `/${vertical}/${brandSlug}/start`;
   const vibe = useVibe();
+  const t = useTranslations('FloatingCta');
 
   return (
     <div className="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col items-end">
@@ -21,7 +24,7 @@ export function FloatingCta({ vertical, brandSlug, brandName }: { vertical: stri
            </div>
            
            <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 group-hover:mt-1 transition-all duration-200 ease-in-out">
-              <span className="text-[10px] font-medium text-white/80 block pb-1">{brandName} 맞춤형 의뢰서 작성</span>
+              <span className="text-[10px] font-medium text-white/80 block pb-1">{t('title', { brandName })}</span>
            </div>
          </Link>
       </div>
