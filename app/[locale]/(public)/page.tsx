@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import { createClient } from '@/core/utils/supabase/server';
 import { EngineShowcase } from './_components/EngineShowcase';
 import { BrandDirectory, PublicBrand } from './_components/BrandDirectory';
@@ -9,61 +9,85 @@ export const metadata = {
   description: '숨겨진 위약금과 가짜 리뷰를 배제한 극강 투명성의 B2B2C 웨딩 AEO 허브.',
 };
 
-export default async function GlobalLobbyPage() {
+export default async function GlobalLobbyPage({ params }: { params: Promise<{ locale: string }> }) {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
   const supabase = await createClient();
 
   // 1. Fetch L0 Public Brands
-  const { data: rawBrands } = await supabase
+  const { data: rawBrands, error: brandError } = await supabase
     .from('brand_registry')
-    .select('brand_id, brand_name, brand_slug, vertical_type, public_status, vibe_spec_id, created_at')
-    .eq('public_status', true)
+    .select('brand_id, brand_name_ko, brand_name_en, brand_slug, vertical_type, public_status, vibe_spec_id, created_at, translations')
+    .eq('public_status', 'published')
     .order('created_at', { ascending: false });
 
+  if (brandError) console.error('Brand Fetch Error:', brandError);
+
   // 2. Fetch L0 Answer Cards for Global Hub (AEO)
-  // 최상위 50개만 캐싱/프리로드 (성능)
-  const { data: rawAnswers } = await supabase
+  const { data: rawAnswers, error: answerError } = await supabase
     .from('answer_card')
     .select(`
-      card_id, question, short_answer, updated_at, boundary_note, reviewer_id,
-      brand:brand_id (brand_id, brand_slug, brand_name_ko, vertical_type)
+      card_id, question, short_answer, updated_at, boundary_note, reviewer_id, translations,
+      brand_registry!inner(brand_id, brand_slug, brand_name_ko, vertical_type)
     `)
     .eq('visibility_level', 'L0')
     .order('updated_at', { ascending: false })
     .limit(50);
 
-  // Projection - QnA Cards
+  if (answerError) console.error('Answer Fetch Error:', answerError);
+
+  // Projection - QnA Cards (Applying locale)
   const allAnswers = (rawAnswers || []).map(ans => {
-    const brand = Array.isArray(ans.brand) ? ans.brand[0] : ans.brand;
+    const b = Array.isArray(ans.brand_registry) ? ans.brand_registry[0] : ans.brand_registry;
+    
+    // 다국어 텍스트 투영
+    let targetQuestion = ans.question;
+    let targetAnswer = ans.short_answer;
+    
+    // answer_card translations schema: { "en": { question, short_answer }, "ja": ... }
+    const trans = ans.translations as any;
+    if (locale !== 'ko' && trans && trans[locale]) {
+       targetQuestion = trans[locale].question || targetQuestion;
+       targetAnswer = trans[locale].short_answer || targetAnswer;
+    }
+
     return {
       answer_id: ans.card_id,
-      question: ans.question,
-      short_answer: ans.short_answer,
-      brand_id: brand?.brand_id || 'unknown',
-      brand_slug: brand?.brand_slug || 'unknown',
-      vertical_type: brand?.vertical_type || 'studio',
-      brand_name: brand?.brand_name_ko || '무명브랜드',
+      question: targetQuestion,
+      short_answer: targetAnswer,
+      brand_id: b?.brand_id || 'unknown',
+      brand_slug: b?.brand_slug || 'unknown',
+      vertical_type: b?.vertical_type || 'studio',
+      brand_name: b?.brand_name_ko || '무명브랜드',
       updated_at: ans.updated_at.split('T')[0],
       reviewer_name: 'Factory System',
       visibility_level: 'L0'
     };
   });
 
-  // DB Map for Brands
-  let brands: PublicBrand[] = (rawBrands || []).map(r => ({
-    brand_id: r.brand_id,
-    brand_name: r.brand_name,
-    brand_slug: r.brand_slug,
-    vertical_type: r.vertical_type,
-    one_line_summary: '시스템 L0 심사 통과 (공인 파트너)',
-    base_price_indicator: null
-  }));
+  // DB Map for Brands (Applying locale)
+  let brands: PublicBrand[] = (rawBrands || []).map(r => {
+    let targetName = locale === 'ko' ? r.brand_name_ko : (r.brand_name_en || r.brand_name_ko);
+    let targetSummary = locale === 'ko' ? '시스템 L0 심사 통과 (공인 파트너)' : 'System L0 Verified (Official Partner)';
+    
+    // brand_registry translations schema: { "en": { summary, rules }, "ja": ... }
+    const trans = r.translations as any;
+    if (locale === 'ja') {
+       if (trans?.ja?.brand_name) targetName = trans.ja.brand_name;
+       targetSummary = 'L0審査通過（公式パートナー）';
+    } else if (locale === 'en' && trans?.en?.brand_name) {
+       targetName = trans.en.brand_name;
+    }
 
-  // MVP Mock Fallback
-  if (brands.length === 0) {
-    brands = [
-      { brand_id: 'mock-1', brand_name: 'Urban Studio', brand_slug: 'urban-studio', vertical_type: 'studio', one_line_summary: '테스트 스튜디오', base_price_indicator: null }
-    ];
-  }
+    return {
+      brand_id: r.brand_id,
+      brand_name: targetName,
+      brand_slug: r.brand_slug,
+      vertical_type: r.vertical_type,
+      one_line_summary: targetSummary,
+      base_price_indicator: null
+    };
+  });
 
   // 🤖 Global AEO JSON-LD (FAQPage)
   const faqSchema = {
@@ -89,13 +113,13 @@ export default async function GlobalLobbyPage() {
       />
       
       {/* 1. Global AI Search Hub (Hero Replacement) */}
-      <GlobalQuestionHub allAnswers={allAnswers as any} />
+      <GlobalQuestionHub allAnswers={allAnswers as any} locale={locale} />
 
       {/* 2. Core Engines Showcase */}
       <EngineShowcase />
 
       {/* 3. L0 Approved Brand Directory */}
-      <BrandDirectory brands={brands} />
+      <BrandDirectory brands={brands} locale={locale} />
 
       {/* Footer */}
       <footer className="w-full bg-zinc-950 py-12 flex justify-center border-t border-zinc-900 mt-20">

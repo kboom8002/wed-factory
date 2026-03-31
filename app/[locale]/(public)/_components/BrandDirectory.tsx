@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 export interface PublicBrand {
   brand_id: string;
@@ -10,7 +10,7 @@ export interface PublicBrand {
   base_price_indicator: number | null;
 }
 
-export function BrandDirectory({ brands }: { brands: PublicBrand[] }) {
+export function BrandDirectory({ brands, locale }: { brands: PublicBrand[], locale: string }) {
   if (!brands || brands.length === 0) {
     return (
       <section id="directory" className="w-full bg-zinc-950 py-32 text-center text-zinc-500 font-medium tracking-tight">
@@ -20,8 +20,12 @@ export function BrandDirectory({ brands }: { brands: PublicBrand[] }) {
   }
 
   const formatPrice = (price: number | null) => {
-    if (!price) return '견적 비공개';
-    return (price / 10000).toLocaleString() + '만 원 ~';
+    if (!price) {
+      return locale === 'ko' ? '견적 비공개' : locale === 'ja' ? '見積もり非公開' : 'Price Upon Request';
+    }
+    return locale === 'ko' ? (price / 10000).toLocaleString() + '만 원 ~' :
+           locale === 'ja' ? (price * 110).toLocaleString() + '円 ~' :
+           '$' + Math.floor(price / 1300).toLocaleString() + ' ~';
   };
 
   return (
@@ -29,8 +33,14 @@ export function BrandDirectory({ brands }: { brands: PublicBrand[] }) {
       <div className="max-w-6xl w-full px-6 flex flex-col items-center">
         
         <div className="text-center mb-16">
-           <h2 className="text-3xl md:text-5xl font-black text-white mb-4">공식 입점 스튜디오 웜홀</h2>
-           <p className="text-zinc-400 font-medium">단 하나의 숨김도 없이, 이 엄격한 플랫폼의 팩트체크를 견뎌낸 명품 브랜드 아카이브.</p>
+           <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
+             {locale === 'ko' ? '공식 입점 스튜디오 웜홀' : locale === 'ja' ? '公式提携スタジオ ギャラリー' : 'Official Partners Wormhole'}
+           </h2>
+           <p className="text-zinc-400 font-medium">
+             {locale === 'ko' ? '단 하나의 숨김도 없이, 이 엄격한 플랫폼의 팩트체크를 견뎌낸 명품 브랜드 아카이브.' :
+              locale === 'ja' ? '一つも隠すことなく、厳しいファクトチェックを通過したプレミアムブランドアーカイブ。' :
+              'A genuine archive of premium brands that passed our strict zero-bs fact-checks.'}
+           </p>
         </div>
 
         {/* Directory Grid */}
@@ -47,7 +57,7 @@ export function BrandDirectory({ brands }: { brands: PublicBrand[] }) {
 
                 <div className="relative z-10 w-full h-full flex flex-col justify-center items-center">
                    <span className="text-xs font-bold text-zinc-500 bg-black px-2 py-1 rounded-full uppercase tracking-widest border border-zinc-800 mb-6">
-                     {b.vertical_type.toUpperCase()} VENDOR
+                     {b.vertical_type.toUpperCase()}
                    </span>
 
                    <h3 className="text-3xl font-black text-white leading-none tracking-tight mb-2 group-hover:-translate-y-1 transition-transform">
@@ -57,7 +67,7 @@ export function BrandDirectory({ brands }: { brands: PublicBrand[] }) {
                    <p className="text-indigo-400 font-bold mb-4 group-hover:-translate-y-1 transition-transform">{formatPrice(b.base_price_indicator)}</p>
                    
                    <p className="text-sm font-medium text-zinc-500 italic max-w-xs line-clamp-2 leading-relaxed opacity-0 group-hover:opacity-100 -translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-75">
-                     "{b.one_line_summary || '이 브랜드만의 강력한 무드를 경험하세요'}"
+                     "{b.one_line_summary}"
                    </p>
                 </div>
                 
