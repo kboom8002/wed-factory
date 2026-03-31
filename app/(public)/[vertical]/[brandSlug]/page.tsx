@@ -132,12 +132,12 @@ export default async function BrandHomePage({
 
         {/* 2. Top Portfolio Glimpse */}
         <section>
-          <div className="flex items-end justify-between mb-8 border-b-2 border-slate-100 pb-4">
+          <div className="flex items-end justify-between mb-8 border-b border-[var(--brand-primary)]/20 pb-4">
              <div>
                 <h2 className="text-2xl font-black text-[var(--brand-text-main)] mb-1">
                    우리가 가장 잘하는 핏 (Fit)
                 </h2>
-                <p className="text-sm font-bold text-[var(--brand-text-muted)] uppercase tracking-widest">Selected Portfolio</p>
+                <p className="text-sm font-bold text-[var(--brand-primary)] uppercase tracking-widest">Selected Portfolio</p>
              </div>
              <Link href={`/${vertical}/${brandSlug}/portfolio`} className="text-sm font-bold text-[var(--brand-primary)] hover:underline">
                전체 갤러리 보기 →
@@ -146,21 +146,21 @@ export default async function BrandHomePage({
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
              {latestShots && latestShots.length > 0 ? latestShots.map((shot, idx) => (
-               <div key={idx} className="aspect-[3/4] rounded-2xl overflow-hidden bg-slate-100 relative group border border-slate-200 shadow-sm">
+               <div key={idx} className="aspect-[3/4] rounded-2xl overflow-hidden bg-[var(--brand-surface)] relative group border border-[var(--brand-text-muted)]/20 shadow-sm">
                   {shot.cdn_url ? (
                     <img src={shot.cdn_url} alt="portfolio" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-slate-300 font-black text-2xl">MOCK</div>
+                    <div className="w-full h-full flex items-center justify-center text-[var(--brand-text-muted)] font-black text-2xl">MOCK</div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-5">
-                     <span className="text-xs font-bold text-white uppercase tracking-widest bg-white/20 backdrop-blur px-2 py-1 rounded">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end p-5">
+                     <span className="text-xs font-bold text-white uppercase tracking-widest bg-[var(--brand-primary)]/40 border border-[var(--brand-primary)]/50 backdrop-blur-md px-3 py-1 rounded">
                        {shot.mood_tags?.[0] || 'Signature'}
                      </span>
                   </div>
                </div>
              )) : (
-               <div className="col-span-3 py-20 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-300">
-                  <p className="font-bold text-slate-400">포트폴리오 스냅샷이 아직 업로드되지 않았습니다.</p>
+               <div className="col-span-3 py-20 text-center bg-[var(--brand-surface)] rounded-3xl border border-dashed border-[var(--brand-text-muted)]/20">
+                  <p className="font-bold text-[var(--brand-text-muted)]">포트폴리오 스냅샷이 아직 업로드되지 않았습니다.</p>
                </div>
              )}
           </div>
@@ -174,31 +174,31 @@ export default async function BrandHomePage({
            <p className="text-sm font-medium text-[var(--brand-text-secondary)] mb-8">기본 패키지 안에서 해결되는 것과 추가금이 유발되는 항목을 투명하게 고시합니다.</p>
            
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
+              <div className="p-5 bg-[var(--brand-bg)] rounded-2xl border border-[var(--brand-text-muted)]/10">
                  <h3 className="flex items-center gap-2 font-bold mb-4 text-[var(--brand-text-main)]">
-                    <span className="text-emerald-500 bg-emerald-100 p-1 rounded">✓</span> 포함 (Included)
+                    <span className="text-[var(--brand-surface)] bg-[var(--brand-text-main)] px-2 py-0.5 rounded text-xs">✓</span> 포함 (Included)
                  </h3>
                  <ul className="space-y-3 ms-2">
-                    <li className="flex gap-3 text-sm font-medium text-slate-600"><span className="text-slate-300">•</span> 원본 데이터 전체 제공 (기본 패키지 포함)</li>
-                    <li className="flex gap-3 text-sm font-medium text-slate-600"><span className="text-slate-300">•</span> 최고급 액자 1개 및 앨범 20p</li>
-                    <li className="flex gap-3 text-sm font-medium text-slate-600"><span className="text-slate-300">•</span> 정밀 색감 및 체형 성형 보정본 20컷</li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 원본 데이터 전체 제공 (기본 패키지 포함)</li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 최고급 액자 1개 및 앨범 20p</li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 정밀 색감 및 체형 성형 보정본 20컷</li>
                  </ul>
               </div>
-              <div className="p-5 bg-red-50/50 rounded-2xl border border-red-100">
-                 <h3 className="flex items-center gap-2 font-bold mb-4 text-red-900">
-                    <span className="text-red-500 bg-red-100 px-1.5 py-0.5 rounded text-xs">리스크</span> 불포함 / 추가금 유발
+              <div className="p-5 bg-red-500/10 rounded-2xl border border-red-500/20">
+                 <h3 className="flex items-center gap-2 font-bold mb-4 text-red-500">
+                    <span className="text-white bg-red-600 px-1.5 py-0.5 rounded text-xs tracking-widest uppercase font-black">Risk</span> 추가금 유발/불포함
                  </h3>
                  <ul className="space-y-3 ms-2">
-                    <li className="flex gap-3 text-sm font-medium text-red-700/80"><span className="text-red-300 border-b border-red-200 border-dashed">야간 씬 전구 세팅비</span> <span>+110,000원</span></li>
-                    <li className="flex gap-3 text-sm font-medium text-red-700/80"><span className="text-red-300 border-b border-red-200 border-dashed">수석 지정 촬영</span> <span>+330,000원</span></li>
-                    <li className="flex gap-3 text-sm font-medium text-slate-500 text-xs mt-4 pt-4 border-t border-red-100">
-                       더 자세한 위약금 및 환불 정책은 하단 링크를 참조하세요.
+                    <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">야간 씬 전구 세팅비</span> <span>+110,000원</span></li>
+                    <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">수석 지정 촬영</span> <span>+330,000원</span></li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-muted)] text-xs mt-4 pt-4 border-t border-red-500/10">
+                       더 자세한 위약금 및 환불 정책은 하단 전체 견적표를 참조하세요.
                     </li>
                  </ul>
               </div>
            </div>
            
-           <Link href={`/${vertical}/${brandSlug}/policies`} className="mt-8 inline-block px-5 py-2.5 bg-white border border-[var(--brand-primary)]/30 rounded-lg text-sm font-bold text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white transition-colors">
+           <Link href={`/${vertical}/${brandSlug}/policies`} className="mt-8 inline-block px-6 py-3 bg-transparent border border-[var(--brand-primary)]/30 rounded-lg text-sm font-bold text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-[var(--brand-surface)] transition-all uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.05)]">
               전체 견적표 및 정책 읽기
            </Link>
         </section>
@@ -217,30 +217,30 @@ export default async function BrandHomePage({
              </Link>
           </div>
           
-          <div className="bg-slate-50 p-6 md:p-10 rounded-3xl border border-slate-200 shadow-inner">
+          <div className="bg-[var(--brand-surface)] p-6 md:p-10 rounded-3xl border border-[var(--brand-primary)]/10 shadow-lg shadow-[var(--brand-primary)]/5">
              <QnaCardList cards={projectedCards} brandId={context.id} />
           </div>
         </section>
 
         {/* 5. Inference / Entry CTA Block */}
-        <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-black rounded-[3rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden flex flex-col items-center">
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay"></div>
+        <section className="bg-[var(--brand-text-main)] rounded-[3rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden flex flex-col items-center border border-[var(--brand-primary)]/30">
+          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay"></div>
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold text-white tracking-widest uppercase mb-6 border border-white/20">
+            <span className="inline-block px-4 py-1.5 bg-[var(--brand-bg)]/20 rounded-full text-[10px] font-black text-[var(--brand-bg)] tracking-[0.2em] uppercase mb-8 border border-[var(--brand-bg)]/30 shadow-sm">
                Step 1. Enquiry
             </span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">
-               우리의 핏 리포트에 동의하신다면, <br className="hidden md:block"/>직접 예산과 무드를 알려주세요.
+            <h2 className="text-3xl md:text-5xl font-black text-[var(--brand-bg)] mb-6 leading-tight uppercase tracking-tighter">
+               우리의 핏을 확인하셨다면,<br className="hidden md:block"/>직접 브리프를 보내주세요.
             </h2>
-            <p className="text-slate-300 font-medium mb-10 text-lg leading-relaxed">
+            <p className="text-[var(--brand-bg)]/80 font-bold mb-12 text-sm md:text-base leading-relaxed">
                전화번호만 던지는 무의미한 상담은 거절합니다.<br />
-               당신의 체형, 예산, 선호 무드를 정교하게 분석한 <strong>무료 핏 브리프(Fit Brief)</strong>를 48시간 내에 프라이빗하게 회신해 드립니다.
+               고객님의 상황(예산, 일정)에 맞춘 <strong>확정 견적(Price Guarantee)</strong>을 프라이빗하게 회신해 드립니다.
             </p>
             <Link 
                href={`/${vertical}/${brandSlug}/start`} 
-               className="inline-block px-10 py-5 bg-[var(--brand-primary)] text-white text-lg font-black rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform active:scale-95 w-full sm:w-auto ring-4 ring-white/10 hover:ring-[var(--brand-primary)]/30"
+               className="inline-block px-10 py-5 bg-[var(--brand-primary)] text-[var(--brand-surface)] text-lg font-black rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] hover:-translate-y-1 transition-transform active:scale-95 w-full sm:w-auto hover:brightness-110"
             >
-               맞춤 핏 브리프(Fit Brief) 무료 의뢰하기 →
+               맞춤 핏 브리프(Fit Brief) 작성 →
             </Link>
           </div>
         </section>

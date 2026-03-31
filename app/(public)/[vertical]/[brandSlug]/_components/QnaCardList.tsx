@@ -66,11 +66,11 @@ export function QnaCardList({ cards, brandId }: { cards: ProjectedCard[], brandI
           const isOpen = openStates[card.id] || false;
 
           return (
-            <div key={card.id} className="bg-[var(--brand-surface)] shadow-sm rounded-[var(--brand-radius)] border border-gray-100 hover:border-[var(--brand-secondary)] transition-all overflow-hidden group">
+            <div key={card.id} className="bg-[var(--brand-surface)] shadow-md rounded-[var(--brand-radius)] border border-[var(--brand-text-muted)]/10 hover:border-[var(--brand-primary)]/50 transition-all overflow-hidden group">
               {/* Accordion Header (Question) */}
               <button 
                 onClick={() => handleToggle(card.id, card.question)}
-                className="w-full text-left p-6 outline-none focus:bg-slate-50 flex justify-between items-center"
+                className="w-full text-left p-6 outline-none hover:bg-[var(--brand-bg)]/50 flex justify-between items-center"
               >
                 <h3 className="font-bold text-lg text-[var(--brand-text-main)] group-hover:text-[var(--brand-accent)] transition-colors">
                   <span className="text-[var(--brand-primary)] mr-2">Q.</span> {card.question}
@@ -82,16 +82,16 @@ export function QnaCardList({ cards, brandId }: { cards: ProjectedCard[], brandI
 
               {/* Accordion Body (Answer) */}
               <div 
-                className={`transition-all duration-300 ease-in-out border-t border-gray-50 bg-slate-50/30 relative ${isOpen ? 'max-h-[1000px] opacity-100 p-6' : 'max-h-0 opacity-0 overflow-hidden py-0 px-6'}`}
+                className={`transition-all duration-300 ease-in-out border-t border-[var(--brand-text-muted)]/10 bg-[var(--brand-bg)]/30 relative ${isOpen ? 'max-h-[1000px] opacity-100 p-6' : 'max-h-0 opacity-0 overflow-hidden py-0 px-6'}`}
               >
                 {/* L1 Disclosure Masking Overlay */}
                 {card._meta?.is_locked && (
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[2px] p-6">
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[var(--brand-surface)]/60 backdrop-blur-[2px] p-6">
                     <span className="text-3xl mb-2 drop-shadow-md">🔒</span>
-                    <p className="text-sm font-black text-slate-800 text-center mb-3">
+                    <p className="text-sm font-black text-[var(--brand-text-main)] text-center mb-3">
                       해당 정책 및 파격 단가 팩트체크 원본은<br/>회원(L1)에게만 공개됩니다.
                     </p>
-                    <a href={`/login?redirect=`} className="px-5 py-2.5 bg-slate-900 text-white font-bold rounded-lg text-xs hover:bg-black transition-colors shadow-xl">
+                    <a href={`/login?redirect=`} className="px-5 py-2.5 bg-[var(--brand-primary)] text-[var(--brand-surface)] font-black rounded-lg text-xs hover:brightness-110 transition-colors shadow-xl">
                       로그인하고 원본 보기
                     </a>
                   </div>

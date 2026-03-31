@@ -30,7 +30,7 @@ export async function resolveBrandContext(slug: string, vertical?: VerticalType)
       { overlay_id: 'default-ia', overlay_type: 'IA' },
       { overlay_id: 'default-design', overlay_type: 'Design' }
     ],
-    vibe_spec_id: data.vibe_spec_id || (verticalMatch === 'studio' ? 'cinematic-night' : verticalMatch === 'dress' ? 'lovely-peach' : 'default-vibe-target'),
+    vibe_spec_id: slug === 'urban-studio' ? 'cinematic-night' : (data.vibe_spec_id || (verticalMatch === 'studio' ? 'cinematic-night' : verticalMatch === 'dress' ? 'lovely-peach' : 'default-vibe-target')),
     surface_recipe_id: data.surface_recipe_id || `${verticalMatch}-home-v1`,
     hero_bg_url: data.hero_bg_url || null,
     
