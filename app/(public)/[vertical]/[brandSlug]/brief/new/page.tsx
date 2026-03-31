@@ -17,9 +17,9 @@ export default async function BriefComposerPage({
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center w-full py-12 px-4 sm:px-6">
+    <main className="min-h-screen bg-[var(--brand-bg)] flex flex-col items-center w-full py-12 px-4 sm:px-6">
       
-      <div className="w-full max-w-2xl bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden mb-20">
+      <div className="w-full max-w-2xl bg-[var(--brand-surface)] rounded-3xl shadow-sm border border-[var(--brand-text-muted)]/20 overflow-hidden mb-20">
         
         {/* Header */}
         <div className="bg-[var(--brand-primary)] px-8 py-10 relative overflow-hidden">
@@ -45,34 +45,34 @@ export default async function BriefComposerPage({
 
           {/* Section 1: Customer Info */}
           <section>
-            <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--brand-text-main)] mb-4 flex items-center gap-2">
               <span className="text-xl">👤</span> 기안자 정보
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">성함 (신랑/신부 중 1명)</label>
-                <input type="text" name="legal_names" required placeholder="예: 김동욱" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50" />
+                <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-1">성함 (신랑/신부 중 1명)</label>
+                <input type="text" name="legal_names" required placeholder="예: 김동욱" className="w-full bg-[var(--brand-bg)] border border-[var(--brand-text-muted)]/20 rounded-xl px-4 py-3 text-sm text-[var(--brand-text-main)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50" />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">연락처</label>
-                <input type="tel" name="contact_info" required placeholder="010-0000-0000" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50" />
+                <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-1">연락처</label>
+                <input type="tel" name="contact_info" required placeholder="010-0000-0000" className="w-full bg-[var(--brand-bg)] border border-[var(--brand-text-muted)]/20 rounded-xl px-4 py-3 text-sm text-[var(--brand-text-main)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50" />
               </div>
             </div>
           </section>
 
           {/* Section 2: Event Timeline */}
           <section>
-            <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--brand-text-main)] mb-4 flex items-center gap-2">
               <span className="text-xl">🗓️</span> 일정
             </h2>
             <div className="space-y-4">
                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">본식(예식) 예정일</label>
-                  <input type="date" name="exact_event_date" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-gray-600" />
+                  <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-1">본식(예식) 예정일</label>
+                  <input type="date" name="exact_event_date" className="w-full bg-[var(--brand-bg)] border border-[var(--brand-text-muted)]/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-[var(--brand-text-main)]" />
                </div>
                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">희망 촬영 시기 (Window)</label>
-                  <select name="schedule_window" required className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-gray-700 font-medium">
+                  <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-1">희망 촬영 시기 (Window)</label>
+                  <select name="schedule_window" required className="w-full bg-[var(--brand-bg)] border border-[var(--brand-text-muted)]/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-[var(--brand-text-main)] font-medium">
                     <option value="">시기 선택...</option>
                     <option value="asap">최대한 빨리 (1~2달 내)</option>
                     <option value="3-6_months">여유 있음 (3~6개월 뒤)</option>
@@ -84,13 +84,13 @@ export default async function BriefComposerPage({
 
           {/* Section 3: Vibe & Budget */}
           <section>
-            <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--brand-text-main)] mb-4 flex items-center gap-2">
               <span className="text-xl">💰</span> 예산 및 선호 핏
             </h2>
              <div className="space-y-5">
                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">본 패키지에 할당할 예산 (Surcharge 포함)</label>
-                  <select name="budget_band" required className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-gray-700 font-medium">
+                  <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-1">본 패키지에 할당할 예산 (Surcharge 포함)</label>
+                  <select name="budget_band" required className="w-full bg-[var(--brand-bg)] border border-[var(--brand-text-muted)]/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-[var(--brand-text-main)] font-medium">
                     <option value="">예산 대역 선택...</option>
                     <option value="under_100">100만 원 미만 (가성비 우선)</option>
                     <option value="100_to_150">100~150만 원 (스탠다드 수준)</option>
@@ -100,12 +100,12 @@ export default async function BriefComposerPage({
                </div>
 
                <div>
-                 <label className="block text-sm font-bold text-gray-700 mb-2">원하시는 화보 무드 (다중 선택 가능)</label>
+                 <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-2">원하시는 화보 무드 (다중 선택 가능)</label>
                  <div className="flex flex-wrap gap-2">
                     {['인물 중심', '자연광 화사함', '어두운 홀/고급스러움', '노을/야외', '빈티지/필름톤', '생동감/데이트스냅'].map((mood) => (
                       <label key={mood} className="cursor-pointer">
                         <input type="checkbox" name="style_mood_tags" value={mood} className="hidden peer" />
-                        <div className="px-4 py-2 text-xs font-bold text-gray-500 bg-gray-100 rounded-full border border-gray-200 peer-checked:bg-[var(--brand-primary)] peer-checked:text-white peer-checked:border-[var(--brand-primary)] transition-all">
+                        <div className="px-4 py-2 text-xs font-bold text-[var(--brand-text-muted)] bg-[var(--brand-bg)] rounded-full border border-[var(--brand-text-muted)]/20 peer-checked:bg-[var(--brand-primary)] peer-checked:text-white peer-checked:border-[var(--brand-primary)] transition-all">
                           {mood}
                         </div>
                       </label>
@@ -114,8 +114,8 @@ export default async function BriefComposerPage({
                </div>
                
                <div>
-                 <label className="block text-sm font-bold text-gray-700 mb-1">색감 및 성형 보정 민감도</label>
-                 <select name="original_retouch_sensitivity" defaultValue="normal" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-gray-700 font-medium">
+                 <label className="block text-sm font-bold text-[var(--brand-text-muted)] mb-1">색감 및 성형 보정 민감도</label>
+                 <select name="original_retouch_sensitivity" defaultValue="normal" className="w-full bg-[var(--brand-bg)] border border-[var(--brand-text-muted)]/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/50 text-[var(--brand-text-main)] font-medium">
                     <option value="high">매우 민감함 (디테일한 합성/성형 보정 필수)</option>
                     <option value="normal">보통 (작가님의 기본 색감과 체형 보정을 믿음)</option>
                     <option value="low">낮음 (완전 원본/다큐멘터리 같은 자연스러움 추구)</option>
@@ -125,15 +125,15 @@ export default async function BriefComposerPage({
           </section>
 
           {/* Submit Action */}
-          <div className="pt-6 border-t border-gray-100">
+          <div className="pt-6 border-t border-[var(--brand-text-muted)]/10">
              <button 
                 type="submit" 
-                className="w-full bg-slate-900 text-white font-bold text-lg py-4 rounded-xl shadow-md hover:bg-black transition-all active:scale-[0.98]"
+                className="w-full bg-[var(--brand-primary)] text-white font-bold text-lg py-4 rounded-xl shadow-md hover:brightness-90 transition-all active:scale-[0.98]"
               >
                제출 및 매칭 룸 생성
              </button>
-             <p className="text-center text-xs text-gray-400 mt-4 leading-relaxed font-medium">
-               이 내용은 일반 마케팅 DB로 유통되지 않으며, 선택하신 브랜드(<strong className="text-gray-500">{context.brand_name}</strong>)의 담당 실장님과 매칭을 위한 용도로 플랫폼 내에서 암호화되어 보관됩니다.
+             <p className="text-center text-xs text-[var(--brand-text-muted)] mt-4 leading-relaxed font-medium">
+               이 내용은 일반 마케팅 DB로 유통되지 않으며, 선택하신 브랜드(<strong className="text-[var(--brand-text-main)]">{context.brand_name}</strong>)의 담당 실장님과 매칭을 위한 용도로 플랫폼 내에서 암호화되어 보관됩니다.
              </p>
           </div>
 

@@ -19,6 +19,10 @@ export function VibeProvider({ vibeId, children }: Props) {
 
   // 테넌트 고유의 CSS Variables(토큰) 조립
   const cssVariables = `
+    html, body {
+      background-color: ${spec.colors.background} !important;
+      color: ${spec.colors.textMain} !important;
+    }
     .vibe-theme {
       --brand-primary: ${spec.colors.primary};
       --brand-secondary: ${spec.colors.secondary};

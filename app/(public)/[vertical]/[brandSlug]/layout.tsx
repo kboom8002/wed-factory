@@ -5,7 +5,23 @@ import { VerticalType } from '@/core/runtime/brand-context';
 import { GlobalNavigationBar } from './_components/GlobalNavigationBar';
 import { FloatingCta } from './_components/FloatingCta';
 import { headers } from 'next/headers';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
+import { VIBE_DICTIONARY } from '@/core/design-system/vibe-registry';
+
+export async function generateViewport({
+  params,
+}: {
+  params: Promise<{ vertical: string; brandSlug: string }>;
+}): Promise<Viewport> {
+  const { vertical, brandSlug } = await params;
+  const context = await resolveBrandContext(brandSlug, vertical as VerticalType);
+  const vibeId = context?.vibe_spec_id || 'default-vibe-target';
+  const spec = VIBE_DICTIONARY[vibeId] || VIBE_DICTIONARY['default-vibe-target'];
+
+  return {
+    themeColor: spec.colors.background,
+  };
+}
 
 export async function generateMetadata({
   params,
