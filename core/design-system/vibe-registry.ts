@@ -89,25 +89,25 @@ export const VIBE_DICTIONARY: Record<string, VibeSpec> = {
   },
   'cinematic-night': {
     id: 'cinematic-night',
-    name: 'Modern Dark (Minimalist Studio)',
+    name: 'Champagne Gold Dark (High-end Studio)',
     colors: {
-      primary: '#FFFFFF', 
-      secondary: '#A1A1AA', // Zinc 400
-      surface: '#18181B', // Zinc 900
-      background: '#09090B', // Zinc 950
-      textMain: '#FAFAFA', // Zinc 50
-      textMuted: '#A1A1AA', // Zinc 400
-      accent: '#27272A', // Zinc 800
+      primary: '#D4AF37',   // Champagne Gold
+      secondary: '#F3E5AB', // Soft Gold
+      surface: '#111111',   // Deep True Black surface
+      background: '#050505',// Abyss Black background
+      textMain: '#FDFCF0',  // Off-white for luxury
+      textMuted: '#888888', // Graphite gray for subtleness
+      accent: '#9A7B4F',    // Antique Bronze/Gold
     },
     typography: {
       fontFamilyClass: outfit.className,
-      headingStyle: 'tracking-tighter uppercase',
+      headingStyle: 'tracking-tight uppercase',
     },
     shape: {
-      borderRadius: '0px', // sharp edges
+      borderRadius: '0px', // sharp corners for editorial vibe
     },
     hooks: {
-      cta_tone: '디렉팅 북명 & 상담 예약',
+      cta_tone: '프라이빗 디렉팅 북명 & 상담 예약',
       trust_tone: '공식 가이드라인 원본 대조필',
       banned_signals: ['싸게', '공구', '서브작가무료'],
       required_evidence: 'contract_only'
