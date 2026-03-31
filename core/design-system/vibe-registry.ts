@@ -114,3 +114,10 @@ export const VIBE_DICTIONARY: Record<string, VibeSpec> = {
     }
   }
 };
+
+// LLM 자동화로 생성해둔 프리셋들을 머지(Merge)합니다.
+import { PREMADE_VIBE_PRESETS } from './vibe-presets';
+
+PREMADE_VIBE_PRESETS.forEach(preset => {
+  VIBE_DICTIONARY[preset.id] = preset;
+});

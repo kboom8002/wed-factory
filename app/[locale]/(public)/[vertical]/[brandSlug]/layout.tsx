@@ -68,9 +68,11 @@ export default async function BrandLayout({
 
   // 2. 하위 트리에 해당 Vibe Token (CSS, Font) 강제 주입
   const vibeId = context.vibe_spec_id || 'default-vibe-target';
+  const { loadVibeSpec } = await import('@/core/design-system/vibe-loader');
+  const spec = loadVibeSpec(vibeId);
 
   return (
-    <VibeProvider vibeId={vibeId}>
+    <VibeProvider vibeId={vibeId} initialSpec={spec}>
       {/* 최상단 Sticky 네비게이션 */}
       <GlobalNavigationBar vertical={vertical} brandSlug={brandSlug} />
       

@@ -1,0 +1,16 @@
+{
+  "Hero": {
+    "title": "{brandName}",
+    "subtitle": "공식 승인 테넌트",
+    "verified": "교차 검증 완료"
+  },
+  "QnA": {
+    "title": "팩트체크 리포트",
+    "locked": "해당 정책 및 파격 단가 팩트체크 원본은 회원에게만 공개됩니다.",
+    "loginToView": "로그인하고 원본 보기"
+  },
+  "CTA": {
+    "brief": "핏 브리프 의뢰하기",
+    "step": "Step 1. Enquiry"
+  }
+}

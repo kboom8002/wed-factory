@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { trackEvent } from '@/app/actions/telemetryActions';
 import { useVibe } from '@/core/design-system/VibeProvider';
 import { TrustMetaTag } from './TrustMetaTag';
+import { useLocale } from 'next-intl';
 
 // DTO from ProjectionEngine
 interface ProjectedCard {
@@ -19,12 +20,14 @@ interface ProjectedCard {
     trust_status?: string;
     is_locked?: boolean;
     original_visibility?: string;
-  }
+  };
+  translations?: Record<string, { question: string, answer: string }>;
 }
 
 export function QnaCardList({ cards, brandId }: { cards: ProjectedCard[], brandId: string }) {
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({});
   const vibe = useVibe();
+  const locale = useLocale();
 
   if (!cards || cards.length === 0) {
     return (
@@ -73,7 +76,7 @@ export function QnaCardList({ cards, brandId }: { cards: ProjectedCard[], brandI
                 className="w-full text-left p-6 outline-none hover:bg-[var(--brand-bg)]/50 flex justify-between items-center"
               >
                 <h3 className="font-bold text-lg text-[var(--brand-text-main)] group-hover:text-[var(--brand-accent)] transition-colors">
-                  <span className="text-[var(--brand-primary)] mr-2">Q.</span> {card.question}
+                  <span className="text-[var(--brand-primary)] mr-2">Q.</span> {card.translations?.[locale]?.question || card.question}
                 </h3>
                 <span className={`text-[var(--brand-primary)] text-xl transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
                   ▼
@@ -98,7 +101,7 @@ export function QnaCardList({ cards, brandId }: { cards: ProjectedCard[], brandI
                 )}
 
                 <p className={`text-[var(--brand-text-main)] whitespace-pre-wrap leading-relaxed ${card._meta?.is_locked ? 'blur-sm select-none opacity-40' : ''}`}>
-                  <span className="text-[var(--brand-primary)] font-bold mr-2">A.</span>{card.answer}
+                  <span className="text-[var(--brand-primary)] font-bold mr-2">A.</span>{card.translations?.[locale]?.answer || card.answer}
                 </p>
                 <TrustMetaTag 
                    lastVerifiedAt={new Date(card.updated_at).toLocaleDateString()} 

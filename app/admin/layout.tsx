@@ -19,6 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { name: '🏅 팩트체크 큐 (Factcheck)', path: '/admin/factcheck' },
     { name: '📭 질문 인박스', path: '/admin/inbox' },
     { name: '💼 브리프/딜룸 모니터링', path: '/admin/dealroom' },
+    { name: '🎨 Vibe UX Sandbox (접근성)', path: '/admin/vibe-sandbox' },
     { name: '🌍 다국어 관리 큐', path: '/admin/localization' },
     { name: '⏳ 변경 이력/감사 로그', path: '/admin/audit' },
   ];

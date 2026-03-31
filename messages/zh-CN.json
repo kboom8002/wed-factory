@@ -1,0 +1,16 @@
+{
+  "Hero": {
+    "title": "{brandName}",
+    "subtitle": "官方认可租户",
+    "verified": "工厂交叉验证完毕"
+  },
+  "QnA": {
+    "title": "事实查核报告",
+    "locked": "相关政策及特惠价格之查核正本，仅限会员查看。",
+    "loginToView": "登录以查看正本"
+  },
+  "CTA": {
+    "brief": "委托 Fit Brief",
+    "step": "步骤 1. 咨询"
+  }
+}

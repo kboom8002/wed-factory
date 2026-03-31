@@ -4,6 +4,8 @@ import { createClient } from '@/core/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 
 // AnswerCard Drafting
+import { translateContent } from '@/core/engines/ai-translation';
+
 export async function saveAnswerDraft(
   brandId: string,
   brandSlug: string,
@@ -16,7 +18,11 @@ export async function saveAnswerDraft(
   const shortAnswer = formData.get('short_answer') as string;
   const boundaryNote = formData.get('boundary_note') as string;
 
-  const payload = {
+  // AI 다국어 동기식 번역 (Phase 11)
+  const sourceTextForAI = `Q: ${question}\nA: ${shortAnswer}\nNote: ${boundaryNote || ''}`;
+  const translatedData = await translateContent(brandSlug + ' FAQ', sourceTextForAI);
+
+  const payload: any = {
     brand_id: brandId,
     question,
     short_answer: shortAnswer,
@@ -24,6 +30,12 @@ export async function saveAnswerDraft(
     public_status: 'reviewing', 
     updated_at: new Date().toISOString(),
   };
+
+  // 만약 qna_registry의 translations 컬럼을 쓴다면 다음과 같이, 
+  // 현재 코드는 answer_card 테이블에 쓰고 있으므로 answer_card 테이블 구조에 translations 컬럼이 있다고 가정합니다.
+  if (Object.keys(translatedData).length > 0) {
+     payload['translations'] = translatedData;
+  }
 
   if (answerId) {
     // Update existing

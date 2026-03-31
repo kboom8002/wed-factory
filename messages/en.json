@@ -1,0 +1,16 @@
+{
+  "Hero": {
+    "title": "{brandName}",
+    "subtitle": "Officially Verified Tenant",
+    "verified": "Cross-checked by Factory"
+  },
+  "QnA": {
+    "title": "Fact-check Report",
+    "locked": "The original fact-check and special pricing policies are only disclosed to L1 members.",
+    "loginToView": "Log in to view originals"
+  },
+  "CTA": {
+    "brief": "Request a Fit Brief",
+    "step": "Step 1. Enquiry"
+  }
+}

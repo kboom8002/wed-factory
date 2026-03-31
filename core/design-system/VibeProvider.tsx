@@ -11,11 +11,12 @@ export function useVibe() {
 
 interface Props {
   vibeId: string;
+  initialSpec?: VibeSpec;
   children: React.ReactNode;
 }
 
-export function VibeProvider({ vibeId, children }: Props) {
-  const spec = VIBE_DICTIONARY[vibeId] || VIBE_DICTIONARY['default-vibe-target'];
+export function VibeProvider({ vibeId, initialSpec, children }: Props) {
+  const spec = initialSpec || VIBE_DICTIONARY[vibeId] || VIBE_DICTIONARY['default-vibe-target'];
 
   // 테넌트 고유의 CSS Variables(토큰) 조립
   const cssVariables = `
@@ -38,7 +39,7 @@ export function VibeProvider({ vibeId, children }: Props) {
   return (
     <VibeContext.Provider value={spec}>
       <style suppressHydrationWarning>{cssVariables}</style>
-      <div className={`vibe-theme min-h-screen bg-[var(--brand-bg)] text-[var(--brand-text-main)] ${spec.typography.fontFamilyClass}`}>
+      <div className={`vibe-theme min-h-screen bg-[var(--brand-bg)] text-[var(--brand-text-main)] ${spec.typography?.fontFamilyClass || ''}`}>
         {children}
       </div>
     </VibeContext.Provider>
