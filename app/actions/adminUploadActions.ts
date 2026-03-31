@@ -70,8 +70,7 @@ export async function uploadHeroBackground(brandSlug: string, formData: FormData
     }
 
     // 4. B-SSoT 및 어드민 캐시 강제 무효화
-    revalidatePath(`/(public)/[vertical]/${brandSlug}`, 'page');
-    revalidatePath(`/admin/brands/${brandSlug}/settings`, 'page');
+    revalidatePath('/', 'layout');
 
     return { success: true, url: publicUrl };
 
