@@ -7,6 +7,7 @@ import { HeroBlock } from './_components/HeroBlock';
 import { TrustStrip } from './_components/TrustStrip';
 import { QnaCardList } from './_components/QnaCardList';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 export default async function BrandHomePage({
   params,
@@ -22,6 +23,12 @@ export default async function BrandHomePage({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const isAuthenticated = !!user;
+
+  const tHero = await getTranslations('Hero');
+  const tPort = await getTranslations('Portfolio');
+  const tPrice = await getTranslations('Pricing');
+  const tQna = await getTranslations('QnA');
+  const tCTA = await getTranslations('CTA');
 
   // 1. 핵심 질문 데이터 패치 (L0, L1 Published Top 3)
   const { data: rawCards } = await supabase
@@ -124,7 +131,12 @@ export default async function BrandHomePage({
       
       {/* 1. Hero & Trust Strip */}
       <div className="w-full relative">
-         <HeroBlock brandName={context.brand_name} verticalType={context.vertical_type} heroBgUrl={context.hero_bg_url} />
+         <HeroBlock 
+            brandName={tHero('title', { brandName: context.brand_name })} 
+            verticalType={context.vertical_type} 
+            subtitle={tHero('subtitle', { verticalType: context.vertical_type })}
+            heroBgUrl={context.hero_bg_url} 
+         />
          <TrustStrip />
       </div>
 
@@ -135,12 +147,12 @@ export default async function BrandHomePage({
           <div className="flex items-end justify-between mb-8 border-b border-[var(--brand-primary)]/20 pb-4">
              <div>
                 <h2 className="text-2xl font-black text-[var(--brand-text-main)] mb-1">
-                   우리가 가장 잘하는 핏 (Fit)
+                   {tPort('title')}
                 </h2>
-                <p className="text-sm font-bold text-[var(--brand-primary)] uppercase tracking-widest">Selected Portfolio</p>
+                <p className="text-sm font-bold text-[var(--brand-primary)] uppercase tracking-widest">{tPort('subtitle')}</p>
              </div>
              <Link href={`/${vertical}/${brandSlug}/portfolio`} className="text-sm font-bold text-[var(--brand-primary)] hover:underline">
-               전체 갤러리 보기 →
+               {tPort('viewAll')}
              </Link>
           </div>
           
@@ -160,7 +172,7 @@ export default async function BrandHomePage({
                </div>
              )) : (
                <div className="col-span-3 py-20 text-center bg-[var(--brand-surface)] rounded-3xl border border-dashed border-[var(--brand-text-muted)]/20">
-                  <p className="font-bold text-[var(--brand-text-muted)]">포트폴리오 스냅샷이 아직 업로드되지 않았습니다.</p>
+                  <p className="font-bold text-[var(--brand-text-muted)]">{tPort('empty')}</p>
                </div>
              )}
           </div>
@@ -170,13 +182,13 @@ export default async function BrandHomePage({
         <section className="bg-[var(--brand-surface)] rounded-3xl p-8 md:p-12 border border-[var(--brand-primary)]/20 shadow-lg shadow-[var(--brand-primary)]/5 relative overflow-hidden">
            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--brand-primary)]/10 rounded-bl-full blur-[20px] pointer-events-none"></div>
            
-           <h2 className="text-2xl font-black text-[var(--brand-text-main)] mb-2">포함 및 불포함 요약</h2>
-           <p className="text-sm font-medium text-[var(--brand-text-secondary)] mb-8">기본 패키지 안에서 해결되는 것과 추가금이 유발되는 항목을 투명하게 고시합니다.</p>
+           <h2 className="text-2xl font-black text-[var(--brand-text-main)] mb-2">{tPrice('title')}</h2>
+           <p className="text-sm font-medium text-[var(--brand-text-secondary)] mb-8">{tPrice('subtitle')}</p>
            
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="p-5 bg-[var(--brand-bg)] rounded-2xl border border-[var(--brand-text-muted)]/10">
                  <h3 className="flex items-center gap-2 font-bold mb-4 text-[var(--brand-text-main)]">
-                    <span className="text-[var(--brand-surface)] bg-[var(--brand-text-main)] px-2 py-0.5 rounded text-xs">✓</span> 포함 (Included)
+                    <span className="text-[var(--brand-surface)] bg-[var(--brand-text-main)] px-2 py-0.5 rounded text-xs">✓</span> {tPrice('included')}
                  </h3>
                  <ul className="space-y-3 ms-2">
                     <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 원본 데이터 전체 제공 (기본 패키지 포함)</li>
@@ -186,7 +198,7 @@ export default async function BrandHomePage({
               </div>
               <div className="p-5 bg-red-500/10 rounded-2xl border border-red-500/20">
                  <h3 className="flex items-center gap-2 font-bold mb-4 text-red-500">
-                    <span className="text-white bg-red-600 px-1.5 py-0.5 rounded text-xs tracking-widest uppercase font-black">Risk</span> 추가금 유발/불포함
+                    <span className="text-white bg-red-600 px-1.5 py-0.5 rounded text-xs tracking-widest uppercase font-black">Risk</span> {tPrice('notIncluded')}
                  </h3>
                  <ul className="space-y-3 ms-2">
                     <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">야간 씬 전구 세팅비</span> <span>+110,000원</span></li>
@@ -199,7 +211,7 @@ export default async function BrandHomePage({
            </div>
            
            <Link href={`/${vertical}/${brandSlug}/policies`} className="mt-8 inline-block px-6 py-3 bg-transparent border border-[var(--brand-primary)]/30 rounded-lg text-sm font-bold text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-[var(--brand-surface)] transition-all uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.05)]">
-              전체 견적표 및 정책 읽기
+              {tPrice('viewAll')}
            </Link>
         </section>
 
@@ -208,12 +220,12 @@ export default async function BrandHomePage({
           <div className="flex items-end justify-between mb-8 pb-4">
              <div>
                 <h2 className="text-2xl font-black text-[var(--brand-text-main)] mb-1">
-                   가장 많이 묻는 질문 팩트체크
+                   {tQna('title')}
                 </h2>
-                <p className="text-sm font-bold text-[var(--brand-text-muted)] uppercase tracking-widest">TOP Q&A</p>
+                <p className="text-sm font-bold text-[var(--brand-text-muted)] uppercase tracking-widest">{tQna('subtitle')}</p>
              </div>
              <Link href={`/${vertical}/${brandSlug}/questions`} className="text-sm font-bold text-[var(--brand-primary)] hover:underline">
-               질문 허브로 가기 →
+               {tQna('viewAll')}
              </Link>
           </div>
           
@@ -227,20 +239,19 @@ export default async function BrandHomePage({
           <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay"></div>
           <div className="relative z-10 max-w-2xl">
             <span className="inline-block px-4 py-1.5 bg-[var(--brand-bg)]/20 rounded-full text-[10px] font-black text-[var(--brand-bg)] tracking-[0.2em] uppercase mb-8 border border-[var(--brand-bg)]/30 shadow-sm">
-               Step 1. Enquiry
+               {tCTA('step')}
             </span>
-            <h2 className="text-3xl md:text-5xl font-black text-[var(--brand-bg)] mb-6 leading-tight uppercase tracking-tighter">
-               우리의 핏을 확인하셨다면,<br className="hidden md:block"/>직접 브리프를 보내주세요.
+            <h2 className="text-3xl md:text-5xl font-black text-[var(--brand-bg)] mb-6 leading-tight uppercase tracking-tighter whitespace-pre-line">
+               {tCTA('title')}
             </h2>
-            <p className="text-[var(--brand-bg)]/80 font-bold mb-12 text-sm md:text-base leading-relaxed">
-               전화번호만 던지는 무의미한 상담은 거절합니다.<br />
-               고객님의 상황(예산, 일정)에 맞춘 <strong>확정 견적(Price Guarantee)</strong>을 프라이빗하게 회신해 드립니다.
+            <p className="text-[var(--brand-bg)]/80 font-bold mb-12 text-sm md:text-base leading-relaxed whitespace-pre-line">
+               {tCTA('desc')}
             </p>
             <Link 
                href={`/${vertical}/${brandSlug}/start`} 
                className="inline-block px-10 py-5 bg-[var(--brand-primary)] text-[var(--brand-surface)] text-lg font-black rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] hover:-translate-y-1 transition-transform active:scale-95 w-full sm:w-auto hover:brightness-110"
             >
-               맞춤 핏 브리프(Fit Brief) 작성 →
+               {tCTA('button')}
             </Link>
           </div>
         </section>

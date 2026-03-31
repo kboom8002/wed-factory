@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function HeroBlock({ brandName, verticalType, heroBgUrl }: { brandName: string; verticalType: string; heroBgUrl?: string | null }) {
+export function HeroBlock({ brandName, verticalType, heroBgUrl, subtitle }: { brandName: string; verticalType: string; heroBgUrl?: string | null, subtitle?: string }) {
   // 배경 이미지가 있을 경우의 인라인 스타일
   const bgStyle = heroBgUrl ? { backgroundImage: `url('${heroBgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : {};
 
@@ -15,7 +15,7 @@ export function HeroBlock({ brandName, verticalType, heroBgUrl }: { brandName: s
       <div className="relative z-10 w-full flex flex-col items-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">{brandName}</h1>
         <p className={`text-xl md:text-2xl ${heroBgUrl ? 'text-white/80' : 'text-[var(--brand-surface)]/80'}`}>
-          웨딩 스드메 AI홈페이지 Factory - {verticalType} 공식 테넌트
+          {subtitle || `웨딩 스드메 AI홈페이지 Factory - ${verticalType} 공식 테넌트`}
         </p>
       </div>
     </section>

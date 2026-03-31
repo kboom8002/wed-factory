@@ -49,7 +49,8 @@ export function projectAnswerCard(
     id: card.card_id,
     question: card.question,
     updated_at: card.updated_at,
-    visibility_level: (card as any).visibility_level || 'L0'
+    visibility_level: (card as any).visibility_level || 'L0',
+    translations: (card as any).translations || null
   };
 
   // 1. Level-based Data Truncation

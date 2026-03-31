@@ -1,16 +1,33 @@
 {
   "Hero": {
     "title": "{brandName}",
-    "subtitle": "Officially Verified Tenant",
-    "verified": "Cross-checked by Factory"
+    "subtitle": "Wedding AI Homepage Factory - Official {verticalType} Tenant"
+  },
+  "Portfolio": {
+    "title": "The Fit We Specialize In",
+    "subtitle": "SELECTED PORTFOLIO",
+    "viewAll": "View Full Gallery →",
+    "empty": "No portfolio snapshots uploaded yet."
+  },
+  "Pricing": {
+    "title": "Inclusions & Exclusions Summary",
+    "subtitle": "Transparent disclosure of what is included in the base package and what incurs extra charges.",
+    "included": "Included",
+    "notIncluded": "Extra Charges (Risk) / Excluded",
+    "viewAll": "Read Full Quote & Policies"
   },
   "QnA": {
-    "title": "Fact-check Report",
-    "locked": "The original fact-check and special pricing policies are only disclosed to L1 members.",
-    "loginToView": "Log in to view originals"
+    "title": "Most Frequently Asked Questions (Fact Check)",
+    "subtitle": "TOP Q&A",
+    "viewAll": "Go to Question Hub →",
+    "locked": "The original fact-check for policies and extreme discounts is disclosed to members (L1) only.",
+    "loginToView": "Login to View Original",
+    "empty": "No answered questions yet."
   },
   "CTA": {
-    "brief": "Request a Fit Brief",
-    "step": "Step 1. Enquiry"
+    "step": "Step 1. Enquiry",
+    "title": "If you confirmed our fit,\nplease send a brief directly.",
+    "desc": "We reject meaningless inquiries that simply drop a phone number.\nWe will privately reply with a Price Guarantee tailored to your budget and schedule.",
+    "button": "Create Custom Fit Brief →"
   }
 }
