@@ -40,7 +40,9 @@ export default async function BrandRegistryPage() {
               return (
                 <tr key={bId} className="hover:bg-blue-50/50 transition">
                   <td className="p-4">
-                    <div className="font-bold text-gray-900 text-base">{brand.brand_name_ko}</div>
+                    <Link href={`/${brand.vertical_type}/${brand.brand_slug}`} target="_blank" className="font-bold text-blue-600 hover:text-blue-800 text-base transition-colors inline-block">
+                      {brand.brand_name_ko}
+                    </Link>
                     <div className="text-xs text-gray-400 mt-1 font-mono">/{brand.vertical_type}/{brand.brand_slug}</div>
                   </td>
                   <td className="p-4">

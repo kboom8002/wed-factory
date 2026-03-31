@@ -20,11 +20,7 @@ export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string;
     { name: t('proof'), path: `${basePath}/proof`, exact: false },
   ];
 
-  const handleLanguageSwitch = () => {
-    // 순환 스위칭 로직 (ko -> en -> ja -> ko)
-    const nextLocale = locale === 'ko' ? 'en' : locale === 'en' ? 'ja' : 'ko';
-    router.replace(pathname, { locale: nextLocale });
-  };
+  const AVAILABLE_LOCALES = ['ko', 'en', 'ja'];
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-[var(--brand-surface)]/80 backdrop-blur-lg border-b shadow-sm border-gray-100 transition-colors duration-300">
@@ -52,16 +48,21 @@ export function GlobalNavigationBar({ vertical, brandSlug }: { vertical: string;
         </ul>
 
         {/* Action Button & Language Switcher */}
-        <div className="flex shrink-0 items-center gap-3">
-          <button 
-             onClick={handleLanguageSwitch}
-             className="px-2 py-1 text-[10px] font-black tracking-widest uppercase border border-[var(--brand-text-muted)]/30 text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:border-[var(--brand-primary)] rounded transition-all bg-[var(--brand-surface)]"
-             title="Switch Language"
-          >
-             {locale}
-          </button>
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 bg-slate-100/50 p-1 rounded-md border border-[var(--brand-text-muted)]/10">
+            {AVAILABLE_LOCALES.filter(l => l !== locale).map(otherLocale => (
+              <button 
+                key={otherLocale}
+                onClick={() => router.replace(pathname, { locale: otherLocale })}
+                className="px-2 py-1 text-[10px] font-black tracking-widest uppercase border border-transparent text-[var(--brand-text-muted)] hover:text-[var(--brand-text-main)] hover:bg-[var(--brand-surface)] hover:shadow-sm rounded transition-all"
+                title={`Switch to ${otherLocale.toUpperCase()}`}
+              >
+                {otherLocale}
+              </button>
+            ))}
+          </div>
 
-          <div className="hidden md:flex shrink-0">
+          <div className="hidden md:flex shrink-0 ml-1">
             <Link 
               href={`${basePath}/start`}
               className="px-4 py-1.5 bg-[var(--brand-primary)] text-[var(--brand-surface)] font-bold text-xs rounded-full shadow-sm hover:brightness-90 transition-all flex items-center gap-1.5"
