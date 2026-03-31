@@ -191,9 +191,9 @@ export default async function BrandHomePage({
                     <span className="text-[var(--brand-surface)] bg-[var(--brand-text-main)] px-2 py-0.5 rounded text-xs">✓</span> {tPrice('included')}
                  </h3>
                  <ul className="space-y-3 ms-2">
-                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 원본 데이터 전체 제공 (기본 패키지 포함)</li>
-                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 최고급 액자 1개 및 앨범 20p</li>
-                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> 정밀 색감 및 체형 성형 보정본 20컷</li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> {tPrice('inc1')}</li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> {tPrice('inc2')}</li>
+                    <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-main)]"><span className="text-[var(--brand-text-muted)]">•</span> {tPrice('inc3')}</li>
                  </ul>
               </div>
               <div className="p-5 bg-red-500/10 rounded-2xl border border-red-500/20">
@@ -201,10 +201,10 @@ export default async function BrandHomePage({
                     <span className="text-white bg-red-600 px-1.5 py-0.5 rounded text-xs tracking-widest uppercase font-black">Risk</span> {tPrice('notIncluded')}
                  </h3>
                  <ul className="space-y-3 ms-2">
-                    <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">야간 씬 전구 세팅비</span> <span>+110,000원</span></li>
-                    <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">수석 지정 촬영</span> <span>+330,000원</span></li>
+                    <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">{tPrice('exc1')}</span> <span>{tPrice('exc1_price')}</span></li>
+                    <li className="flex gap-3 text-sm font-medium text-red-400"><span className="border-b border-red-500/30 border-dashed pb-0.5">{tPrice('exc2')}</span> <span>{tPrice('exc2_price')}</span></li>
                     <li className="flex gap-3 text-sm font-medium text-[var(--brand-text-muted)] text-xs mt-4 pt-4 border-t border-red-500/10">
-                       더 자세한 위약금 및 환불 정책은 하단 전체 견적표를 참조하세요.
+                       {tPrice('excNote')}
                     </li>
                  </ul>
               </div>

@@ -13,7 +13,15 @@
     "title": "Inclusions & Exclusions Summary",
     "subtitle": "Transparent disclosure of what is included in the base package and what incurs extra charges.",
     "included": "Included",
+    "inc1": "All Original Data Provided (Included in Base Package)",
+    "inc2": "1 Premium Frame and 20p Album",
+    "inc3": "20 Precision Color and Shape Retouched Cuts",
     "notIncluded": "Extra Charges (Risk) / Excluded",
+    "exc1": "Night Scene Bulb Setting Fee",
+    "exc1_price": "+110,000 KRW",
+    "exc2": "Chief Photographer Assignment",
+    "exc2_price": "+330,000 KRW",
+    "excNote": "Please refer to the full quote table below for detailed penalty and refund policies.",
     "viewAll": "Read Full Quote & Policies"
   },
   "QnA": {
