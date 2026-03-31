@@ -9,13 +9,19 @@ export default async function PlatformDashboardPage() {
     { count: brandCount }, 
     { count: assetCount }, 
     { count: zeroResultCount }, 
-    { count: envelopeCount }
+    { count: envelopeCount },
+    { count: pendingAnswers },
+    { count: pendingPolicies }
   ] = await Promise.all([
     supabase.from('brand_registry').select('*', { count: 'exact', head: true }).eq('public_status', 'published'),
     supabase.from('answer_card').select('*', { count: 'exact', head: true }).eq('visibility_level', 'L0'),
     supabase.from('zero_result_query').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
-    supabase.from('bride_groom_envelope').select('*', { count: 'exact', head: true }).eq('status', 'requested')
+    supabase.from('bride_groom_envelope').select('*', { count: 'exact', head: true }).eq('status', 'requested'),
+    supabase.from('answer_card').select('*', { count: 'exact', head: true }).eq('public_status', 'reviewing'),
+    supabase.from('policy_item').select('*', { count: 'exact', head: true }).eq('is_fact_checked', false)
   ]);
+
+  const factcheckPendingCount = (pendingAnswers || 0) + (pendingPolicies || 0);
 
   // 2. 대기열(Queue) 및 B2B 매출 지표 데이터 조회
   const { data: acceptedDeals } = await supabase
@@ -57,7 +63,8 @@ export default async function PlatformDashboardPage() {
   );
 
   const KpiCards = [
-    { title: 'Active Brands', value: brandCount || 0, desc: '현재 L0 Public 노출 중인 테넌트', route: '/admin/brands', icon: '🏢' },
+    { title: 'Factcheck Queue', value: factcheckPendingCount, desc: '승인 대기 중인 초안(Draft)', route: '/admin/factcheck', icon: '🏅', isAlert: factcheckPendingCount > 0 },
+    { title: 'Active Brands', value: brandCount || 0, desc: '현재 L0 노출 테넌트', route: '/admin/brands', icon: '🏢' },
     { title: 'Answer Cards', value: assetCount || 0, desc: '퍼블릭 허브로 확산된 자산 총합', route: '/admin/questions', icon: '💬' },
     { title: 'Envelope Queue', value: envelopeCount || 0, desc: '공급자 매칭을 기다리는 Fit Brief', route: '/admin/dealroom', icon: '💌', isAlert: (envelopeCount || 0) > 0 },
     { title: 'Total GMV (Deals)', value: `₩${(totalGmv / 10000).toLocaleString()}만`, desc: `${acceptedDeals?.length || 0}건 계약 성사 (수락됨)`, route: '/admin/dealroom', icon: '💰', isHighlight: true },
