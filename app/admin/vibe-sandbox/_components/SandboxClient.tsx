@@ -5,8 +5,8 @@ import { VibeSpec, VIBE_DICTIONARY } from '@/core/design-system/vibe-registry';
 import { VibeProvider } from '@/core/design-system/VibeProvider';
 import { ContrastReport } from './ContrastReport';
 import { saveCustomVibeSpec } from '@/app/actions/vibeActions';
-import { QnaCardList } from '@/app/(public)/[vertical]/[brandSlug]/_components/QnaCardList';
-import { TrustStrip } from '@/app/(public)/[vertical]/[brandSlug]/_components/TrustStrip';
+import { QnaCardList } from '@/app/[locale]/(public)/[vertical]/[brandSlug]/_components/QnaCardList';
+import { TrustStrip } from '@/app/[locale]/(public)/[vertical]/[brandSlug]/_components/TrustStrip';
 import { VibeGalleryCarousel } from './VibeGalleryCarousel';
 
 export function SandboxClient() {

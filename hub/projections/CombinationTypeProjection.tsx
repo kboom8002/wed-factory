@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TrustMetaTag } from '@/app/(public)/[vertical]/[brandSlug]/_components/TrustMetaTag';
+import { TrustMetaTag } from '@/app/[locale]/(public)/[vertical]/[brandSlug]/_components/TrustMetaTag';
 
 export interface HubCombinationData {
   id: string;
