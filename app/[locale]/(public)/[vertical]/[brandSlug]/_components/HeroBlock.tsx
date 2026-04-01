@@ -1,8 +1,9 @@
 import React from 'react';
 
 export function HeroBlock({ brandName, verticalType, heroBgUrl, subtitle }: { brandName: string; verticalType: string; heroBgUrl?: string | null, subtitle?: string }) {
-  // 배경 이미지가 있을 경우의 인라인 스타일
-  const bgStyle = heroBgUrl ? { backgroundImage: `url('${heroBgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : {};
+  // 공백, 한글 특수문자 대응을 위한 URI 안전 인코딩 적용
+  const safeUrl = heroBgUrl ? encodeURI(heroBgUrl) : null;
+  const bgStyle = safeUrl ? { backgroundImage: `url('${safeUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : {};
 
   return (
     <section 

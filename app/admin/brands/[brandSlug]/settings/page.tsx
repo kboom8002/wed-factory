@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, use } from 'react';
+import { useState, useRef, use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadHeroBackground } from '@/app/actions/adminUploadActions';
 import Link from 'next/link';
@@ -14,6 +14,19 @@ export default function BrandSettingsPage({ params }: { params: Promise<{ brandS
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // 초기 렌더링 시 기존에 업로드 된 hero_bg_url을 가져와서 프리뷰에 세팅합니다.
+  useEffect(() => {
+    async function fetchBg() {
+      const { createClient } = await import('@/core/utils/supabase/client');
+      const supabase = createClient();
+      const { data } = await supabase.from('brand_registry').select('hero_bg_url').eq('brand_slug', resolvedParams.brandSlug).single();
+      if (data && data.hero_bg_url) {
+        setPreviewUrl(data.hero_bg_url);
+      }
+    }
+    fetchBg();
+  }, [resolvedParams.brandSlug]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
