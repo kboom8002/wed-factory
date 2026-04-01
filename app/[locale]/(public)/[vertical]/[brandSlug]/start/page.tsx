@@ -95,16 +95,16 @@ export default async function BriefComposerPage({
                       { val: 'undecided', label: '미정', desc: '우선 상담부터 필요함' }
                     ].map(opt => (
                       <label key={opt.val} className="cursor-pointer group relative block">
-                        <input type="radio" name="schedule_window" required value={opt.val} className="peer absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 m-0" />
-                        <div className="p-4 rounded-2xl border-2 border-[var(--brand-text-muted)]/10 bg-[var(--brand-surface)] peer-checked:border-[var(--brand-primary)] transition-all text-left group-hover:bg-[var(--brand-text-muted)]/5 relative overflow-hidden" style={{ backgroundColor: 'transparent' }}>
+                        <input type="radio" name="schedule_window" required value={opt.val} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 m-0" />
+                        <div className="p-4 rounded-2xl border-2 border-[var(--brand-text-muted)]/10 bg-[var(--brand-surface)] group-has-[:checked]:border-[var(--brand-primary)] transition-all text-left group-hover:bg-[var(--brand-text-muted)]/5 relative overflow-hidden" style={{ backgroundColor: 'transparent' }}>
                           {/* CSS 변수 투명도 지원을 위한 인라인 필터/오버레이 */}
-                          <div className="absolute inset-0 bg-[var(--brand-primary)] opacity-0 peer-checked:opacity-5 transition-opacity pointer-events-none"></div>
+                          <div className="absolute inset-0 bg-[var(--brand-primary)] opacity-0 group-has-[:checked]:opacity-5 transition-opacity pointer-events-none"></div>
                           <div className="relative z-0">
                             <span className="block font-bold text-[var(--brand-text-main)] mb-1">{opt.label}</span>
                             <span className="block text-xs font-medium text-[var(--brand-text-muted)] uppercase tracking-tight">{opt.desc}</span>
                           </div>
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-[var(--brand-text-muted)]/20 peer-checked:border-[var(--brand-primary)] peer-checked:bg-[var(--brand-primary)] flex items-center justify-center transition-all z-0">
-                             <span className="w-2 h-2 rounded-full bg-white scale-0 peer-checked:scale-100 transition-transform"></span>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-[var(--brand-text-muted)]/20 group-has-[:checked]:border-[var(--brand-primary)] group-has-[:checked]:bg-[var(--brand-primary)] flex items-center justify-center transition-all z-0">
+                             <span className="w-2 h-2 rounded-full bg-white scale-0 group-has-[:checked]:scale-100 transition-transform"></span>
                           </div>
                         </div>
                       </label>
@@ -131,15 +131,15 @@ export default async function BriefComposerPage({
                       { val: 'over_200', title: '200만 원 이상', subtitle: '비용보다 하이엔드 퀄리티 우선입니다.' }
                     ].map(opt => (
                       <label key={opt.val} className="cursor-pointer group relative block">
-                        <input type="radio" name="budget_band" required value={opt.val} className="peer absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 m-0" />
-                        <div className="p-5 rounded-2xl border-2 border-[var(--brand-text-muted)]/10 bg-[var(--brand-surface)] peer-checked:border-[var(--brand-primary)] transition-all text-left flex items-center justify-between relative overflow-hidden" style={{ backgroundColor: 'transparent' }}>
-                          <div className="absolute inset-0 bg-[var(--brand-primary)] opacity-0 peer-checked:opacity-5 transition-opacity pointer-events-none"></div>
+                        <input type="radio" name="budget_band" required value={opt.val} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 m-0" />
+                        <div className="p-5 rounded-2xl border-2 border-[var(--brand-text-muted)]/10 bg-[var(--brand-surface)] group-has-[:checked]:border-[var(--brand-primary)] transition-all text-left flex items-center justify-between relative overflow-hidden" style={{ backgroundColor: 'transparent' }}>
+                          <div className="absolute inset-0 bg-[var(--brand-primary)] opacity-0 group-has-[:checked]:opacity-5 transition-opacity pointer-events-none"></div>
                           <div className="relative z-0">
                             <span className="block font-black text-[var(--brand-text-main)] mb-1 text-base">{opt.title}</span>
                             <span className="block text-xs font-semibold text-[var(--brand-text-muted)] tracking-tight">{opt.subtitle}</span>
                           </div>
-                          <div className="w-6 h-6 rounded-full border-2 border-[var(--brand-text-muted)]/20 peer-checked:border-[var(--brand-primary)] peer-checked:bg-[var(--brand-primary)] flex items-center justify-center transition-all bg-white shrink-0 z-0">
-                             <svg className="w-3.5 h-3.5 text-white scale-0 peer-checked:scale-100 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                          <div className="w-6 h-6 rounded-full border-2 border-[var(--brand-text-muted)]/20 group-has-[:checked]:border-[var(--brand-primary)] group-has-[:checked]:bg-[var(--brand-primary)] flex items-center justify-center transition-all bg-white shrink-0 z-0">
+                             <svg className="w-3.5 h-3.5 text-white scale-0 group-has-[:checked]:scale-100 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                           </div>
                         </div>
                       </label>
