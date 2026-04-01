@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useVibe } from '@/core/design-system/VibeProvider';
 
 import { useTranslations } from 'next-intl';

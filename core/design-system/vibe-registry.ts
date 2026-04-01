@@ -107,7 +107,7 @@ export const VIBE_DICTIONARY: Record<string, VibeSpec> = {
       borderRadius: '0px', // sharp corners for editorial vibe
     },
     hooks: {
-      cta_tone: '프라이빗 디렉팅 북명 & 상담 예약',
+      cta_tone: '프라이빗 디렉팅 부킹 & 상담 예약',
       trust_tone: '공식 가이드라인 원본 대조필',
       banned_signals: ['싸게', '공구', '서브작가무료'],
       required_evidence: 'contract_only'
