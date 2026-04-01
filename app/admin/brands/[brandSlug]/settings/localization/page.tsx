@@ -14,15 +14,16 @@ export default async function BrandLocalizationSettingsPage({
   // 1. Validate Brand
   const { data: brand, error: brandErr } = await supabase
     .from('brand_registry')
-    .select('*, id, brand_id')
+    .select('*, brand_id')
     .eq('brand_slug', brandSlug)
     .single();
 
   if (brandErr || !brand) {
+    console.error('Localization Page Load Error:', brandErr);
     notFound();
   }
 
-  const brandId = brand.brand_id || brand.id;
+  const brandId = brand.brand_id;
 
   // 2. Fetch Entity Stats
   // A. Combinations
