@@ -20,12 +20,10 @@ export async function submitVendorProposal(data: ProposalData) {
     const { data: inserted, error: propError } = await supabase
       .from('deal_proposals')
       .insert({
-        envelope_id: data.envelopeId,
+        client_envelope_id: data.envelopeId,
         brand_id: data.brandId,
         proposed_price: data.proposedPrice,
-        confirmed_schedule: data.confirmedSchedule,
-        perks: data.perks,
-        comment: data.comment,
+        message: `[확정 일정] ${data.confirmedSchedule}\n\n[제안 혜택] ${data.perks || '없음'}\n\n[상세 코멘트]\n${data.comment}`,
         status: 'pending' // pending client's acceptance
       })
       .select('proposal_id')
