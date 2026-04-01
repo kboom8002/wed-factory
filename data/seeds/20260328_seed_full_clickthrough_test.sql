@@ -47,13 +47,13 @@ BEGIN
   -- 3. 포트폴리오 스냅 (Portfolio Shots)
   INSERT INTO public.portfolio_shot (brand_id, cdn_url, mood_tags, visibility_level) VALUES
   -- Studio
-  (v_studio_id, 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800', ARRAY['야간스냅', '폭죽씬', '시네마틱'], 'L0'),
-  (v_studio_id, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800', ARRAY['로드씬', '흑백사진', '자연스러움'], 'L0'),
-  (v_studio_id, 'https://images.unsplash.com/photo-1542037104857-ffcb03c737f9?auto=format&fit=crop&q=80&w=800', ARRAY['실내스튜디오', '창가씬', '역광'], 'L0'),
+  (v_studio_id, '/images/mock/studio-night.png', ARRAY['야간스냅', '폭죽씬', '시네마틱'], 'L0'),
+  (v_studio_id, '/images/mock/studio-road.png', ARRAY['로드씬', '흑백사진', '자연스러움'], 'L0'),
+  (v_studio_id, '/images/mock/studio-indoor.png', ARRAY['실내스튜디오', '창가씬', '역광'], 'L0'),
   -- Dress
-  (v_dress_id, 'https://images.unsplash.com/photo-1594552072238-18e47087fb25?auto=format&fit=crop&q=80&w=800', ARRAY['비즈드레스', '벨라인', '본식용'], 'L0'),
-  (v_dress_id, 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&q=80&w=800', ARRAY['실크드레스', '오프숄더', '촬영용'], 'L0'),
-  (v_dress_id, 'https://images.unsplash.com/photo-1596450514735-111a2fe02935?auto=format&fit=crop&q=80&w=800', ARRAY['야외스냅용', '빈티지레이스'], 'L0');
+  (v_dress_id, '/images/mock/dress-bead.png', ARRAY['비즈드레스', '벨라인', '본식용'], 'L0'),
+  (v_dress_id, '/images/mock/dress-silk.png', ARRAY['실크드레스', '오프숄더', '촬영용'], 'L0'),
+  (v_dress_id, '/images/mock/dress-outdoor.png', ARRAY['야외스냅용', '빈티지레이스'], 'L0');
 
   -- 4. 정책 (Policy Items)
   INSERT INTO public.policy_item (brand_id, policy_family, summary, exceptions, visibility_level) VALUES
