@@ -2,8 +2,13 @@
 
 import { createClient } from '@/core/utils/supabase/server';
 import { generateObject } from 'ai';
-import { google } from '@ai-sdk/google';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { z } from 'zod';
+
+// 사용자 정의 환경변수 매핑 (Vercel에 설정된 GEMINI_API_KEY 우선)
+const googleProvider = createGoogleGenerativeAI({
+  apiKey: process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+});
 
 export async function batchTranslateBrand(brandSlug: string) {
   const supabase = await createClient();
@@ -37,7 +42,7 @@ export async function batchTranslateBrand(brandSlug: string) {
     // We only translate if missing
     if (!brandTrans.en || typeof brandTrans.en.brand_name !== 'string' || !brandTrans.ja || typeof brandTrans.ja.brand_name !== 'string') {
       const { object } = await generateObject({
-        model: google('gemini-2.5-pro'),
+        model: googleProvider('gemini-2.5-pro'),
         schema: z.object({
           en: z.object({ brand_name: z.string() }),
           ja: z.object({ brand_name: z.string() })
@@ -62,7 +67,7 @@ export async function batchTranslateBrand(brandSlug: string) {
         let trans = typeof combo.translations === 'object' && combo.translations !== null ? combo.translations : {};
         if (!trans.en || !trans.ja) {
           const { object } = await generateObject({
-            model: google('gemini-2.5-pro'),
+            model: googleProvider('gemini-2.5-pro'),
             schema: z.object({
               en: z.object({
                 title: z.string(),
@@ -104,7 +109,7 @@ export async function batchTranslateBrand(brandSlug: string) {
         let trans = typeof policy.translations === 'object' && policy.translations !== null ? policy.translations : {};
         if (!trans.en || !trans.ja) {
           const { object } = await generateObject({
-            model: google('gemini-2.5-pro'),
+            model: googleProvider('gemini-2.5-pro'),
             schema: z.object({
               en: z.object({
                 summary: z.string(),
@@ -140,7 +145,7 @@ export async function batchTranslateBrand(brandSlug: string) {
         let trans = typeof answer.translations === 'object' && answer.translations !== null ? answer.translations : {};
         if (!trans.en || !trans.ja) {
           const { object } = await generateObject({
-            model: google('gemini-2.5-pro'),
+            model: googleProvider('gemini-2.5-pro'),
             schema: z.object({
               en: z.object({ question: z.string(), answer: z.string() }),
               ja: z.object({ question: z.string(), answer: z.string() })
