@@ -3,7 +3,7 @@
 -- 1. bride_groom_envelope 테이블에 target_brand_id (필수) 추가
 -- 기존 레코드들이 있을 수 있으므로 먼저 NULL 허용으로 생성
 ALTER TABLE public.bride_groom_envelope 
-ADD COLUMN target_brand_id UUID REFERENCES public.brand_registry(id) ON DELETE CASCADE;
+ADD COLUMN target_brand_id UUID REFERENCES public.brand_registry(brand_id) ON DELETE CASCADE;
 
 -- 2. Index 추가
 CREATE INDEX idx_envelope_target_brand ON public.bride_groom_envelope(target_brand_id);

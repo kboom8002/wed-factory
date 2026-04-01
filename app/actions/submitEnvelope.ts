@@ -37,8 +37,8 @@ export async function submitBrideGroomEnvelope(
   // 2-5. target_brand_id 역추적 조회
   const { data: brandData, error: brandError } = await supabase
     .from('brand_registry')
-    .select('id')
-    .eq('slug', brandSlug)
+    .select('brand_id')
+    .eq('brand_slug', brandSlug)
     .single()
 
   if (brandError || !brandData) {
@@ -50,7 +50,7 @@ export async function submitBrideGroomEnvelope(
   const { data, error } = await supabase
     .from('bride_groom_envelope')
     .insert({
-      target_brand_id: brandData.id,
+      target_brand_id: brandData.brand_id,
       target_combination_id: combinationId,
       schedule_window: scheduleWindow,
       budget_band: budgetBand,
