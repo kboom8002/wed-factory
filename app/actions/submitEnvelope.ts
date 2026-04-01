@@ -34,10 +34,23 @@ export async function submitBrideGroomEnvelope(
     return { error: '필수 입력값이 누락되었습니다.' }
   }
 
+  // 2-5. target_brand_id 역추적 조회
+  const { data: brandData, error: brandError } = await supabase
+    .from('brand_registry')
+    .select('id')
+    .eq('slug', brandSlug)
+    .single()
+
+  if (brandError || !brandData) {
+    console.error('[SubmitEnvelope] Brand Not Found:', brandSlug, brandError)
+    return { error: '대상이 되는 브랜드를 데이터베이스에서 찾을 수 없습니다.' }
+  }
+
   // 3. DB Insert (새로운 Schema 반영)
   const { data, error } = await supabase
     .from('bride_groom_envelope')
     .insert({
+      target_brand_id: brandData.id,
       target_combination_id: combinationId,
       schedule_window: scheduleWindow,
       budget_band: budgetBand,
