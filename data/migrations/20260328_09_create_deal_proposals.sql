@@ -3,7 +3,7 @@
 CREATE TABLE public.deal_proposals (
     proposal_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     client_envelope_id UUID REFERENCES public.bride_groom_envelope(envelope_id) ON DELETE CASCADE,
-    brand_id UUID REFERENCES public.brand_registry(id) ON DELETE CASCADE,
+    brand_id UUID REFERENCES public.brand_registry(brand_id) ON DELETE CASCADE,
     proposed_price INTEGER NOT NULL,
     message TEXT NOT NULL,
     status VARCHAR(50) DEFAULT 'pending', -- pending, accepted, rejected
